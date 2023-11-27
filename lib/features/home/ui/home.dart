@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notice_board/features/home/ui/custom_navbar.dart';
+import 'package:notice_board/features/home/ui/widgets/home_appbar.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -12,10 +12,17 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Hello, Home"),
+      extendBody: true,
+      backgroundColor: Color(0xffF5F6F7),
+      body: Column(
+        children: [
+          HomeAppBar(subtitle: "Let's see the update notice"),
+          Text("data"),
+          Text("data"),
+          Text("data"),
+          Text("data"),
+        ],
       ),
-      body: Container(),
     );
   }
 }

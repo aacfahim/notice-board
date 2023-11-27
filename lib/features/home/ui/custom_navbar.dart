@@ -32,7 +32,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         controller: _pageController,
         onPageChanged: (index) {
           setState(() {
@@ -46,38 +46,52 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           Category(),
         ],
       ),
-      bottomNavigationBar: SalomonBottomBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          // _pageController.animateToPage(
-          //   index,
-          //   duration: Duration(milliseconds: 500),
-          //   curve: Curves.easeInOut,
-          // );
-          _pageController.jumpToPage(
-            index,
-            // duration: Duration(milliseconds: 500),
-            // curve: Curves.easeInOut,
-          );
-        },
-        items: [
-          SalomonBottomBarItem(
-            icon: Icon(Icons.home_rounded),
-            title: Text("Home"),
-          ),
-          SalomonBottomBarItem(
-            icon: Icon(Icons.grid_view),
-            title: Text("Category"),
-          ),
-          SalomonBottomBarItem(
-            icon: Icon(Icons.bookmark_outline),
-            title: Text("Bookmark"),
-          ),
-          SalomonBottomBarItem(
-            icon: Icon(Icons.menu_rounded),
-            title: Text("More"),
-          ),
-        ],
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black,
+                blurRadius: 8,
+                spreadRadius: 2,
+                offset: Offset(0, 10),
+              ),
+            ],
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20), topRight: Radius.circular(30))),
+        child: SalomonBottomBar(
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            // _pageController.animateToPage(
+            //   index,
+            //   duration: Duration(milliseconds: 500),
+            //   curve: Curves.easeInOut,
+            // );
+            _pageController.jumpToPage(
+              index,
+              // duration: Duration(milliseconds: 500),
+              // curve: Curves.easeInOut,
+            );
+          },
+          items: [
+            SalomonBottomBarItem(
+              icon: Icon(Icons.home_rounded),
+              title: Text("Home"),
+            ),
+            SalomonBottomBarItem(
+              icon: Icon(Icons.grid_view),
+              title: Text("Category"),
+            ),
+            SalomonBottomBarItem(
+              icon: Icon(Icons.bookmark_outline),
+              title: Text("Bookmark"),
+            ),
+            SalomonBottomBarItem(
+              icon: Icon(Icons.menu_rounded),
+              title: Text("More"),
+            ),
+          ],
+        ),
       ),
     );
   }
