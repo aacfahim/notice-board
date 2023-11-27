@@ -58,7 +58,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               ),
             ],
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(30))),
+                topLeft: Radius.circular(20), topRight: Radius.circular(20))),
         child: SalomonBottomBar(
           currentIndex: _currentIndex,
           onTap: (index) {
