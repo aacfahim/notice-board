@@ -2,11 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class NoticeTile extends StatelessWidget {
-  const NoticeTile({super.key, this.bookmarked = false});
+  const NoticeTile(
+      {super.key,
+      this.bookmarked = false,
+      required this.title,
+      this.noticeType,
+      required this.date});
   final bool bookmarked;
+  final String title;
+  final noticeType;
+  final String date;
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Container(
       padding: EdgeInsets.all(12),
       height: 100,
@@ -28,7 +38,10 @@ class NoticeTile extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("বাংলাদেশ"),
+              SizedBox(
+                width: width * 0.7,
+                child: Text(title, overflow: TextOverflow.ellipsis),
+              ),
               bookmarked
                   ? Image.asset("assets/bookmarked.png")
                   : Image.asset("assets/unbookmarked.png")
@@ -45,7 +58,7 @@ class NoticeTile extends StatelessWidget {
                 child: Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4),
-                  child: Text("Exam Notice"),
+                  child: Text(noticeType),
                 ),
               ),
               Row(
@@ -54,7 +67,7 @@ class NoticeTile extends StatelessWidget {
                     "assets/calendar-dates.svg",
                   ),
                   SizedBox(width: 5),
-                  Text("25 Aug 2023")
+                  Text(date)
                 ],
               )
             ],

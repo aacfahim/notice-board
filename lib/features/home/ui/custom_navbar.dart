@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:notice_board/features/home/ui/category.dart';
+import 'package:notice_board/features/home/ui/bookmark_screen.dart';
+
+import 'package:notice_board/features/home/ui/category_screen.dart';
 import 'package:notice_board/features/home/ui/home.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
@@ -41,9 +43,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         },
         children: [
           Home(),
-          Category(),
-          Home(),
-          Category(),
+          CategoryScreen(),
+          BookmarkScreen(),
+          BookmarkScreen(),
         ],
       ),
       bottomNavigationBar: Container(

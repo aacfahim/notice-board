@@ -42,34 +42,58 @@ class _HomeState extends State<Home> {
                     ),
                     child: CriteriaWidget(),
                   ),
+                  SizedBox(height: height * 0.02),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("Categories"),
-                      TextButton(
-                          onPressed: () {}, child: const Text("Seel all"))
+                      Text(
+                        "Categories",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text("See all")
                     ],
                   ),
-                  SizedBox(
+                  SizedBox(height: height * 0.01),
+                  // Container(
+                  //   constraints: BoxConstraints(
+                  //     maxHeight: 100,
+                  //     minHeight: 10,
+                  //   ),
+                  //   color: Colors.blue,
+                  //   child: Container(
+                  //     height: 10,
+                  //     color: Colors.red,
+                  //   ),
+                  // ),
+                  Container(
                     // color: Colors.red,
-                    height: height * 0.155,
+                    height: height * 0.15,
+
+                    // constraints: BoxConstraints(
+                    //   maxHeight: 100,
+                    //   minHeight: 20,
+                    // ),
+
                     // height: 200,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemCount: 10,
                       itemBuilder: (context, index) {
                         return CategoryTile(
-                            title: "All Notices", noticesCount: 35);
+                            title: "All Notices", noticesCount: 30);
                       },
-                      separatorBuilder: (context, index) => SizedBox(width: 40),
+                      separatorBuilder: (context, index) => SizedBox(width: 20),
                     ),
                   ),
+                  SizedBox(height: height * 0.02),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("My Notice"),
-                      TextButton(
-                          onPressed: () {}, child: const Text("Seel all"))
+                      Text(
+                        "All Notice",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text("See all")
                     ],
                   ),
                   SizedBox(
@@ -78,10 +102,15 @@ class _HomeState extends State<Home> {
 
                     child: ListView.separated(
                         itemBuilder: (index, context) {
-                          return NoticeTile();
+                          return NoticeTile(
+                            title:
+                                "বাংলাদেশ হাউজ বিল্ডিং ফাইনান্স কর্পোরেশন এর নিয়োগ পরিক্ষা সময়সূচী - ০৮/০৯ ",
+                            noticeType: "Exam Notice",
+                            date: "25 Aug 2023",
+                          );
                         },
                         separatorBuilder: (index, context) =>
-                            SizedBox(height: 6),
+                            SizedBox(height: 12),
                         itemCount: 30),
                   ),
                 ],
