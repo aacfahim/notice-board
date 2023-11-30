@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:notice_board/features/auth/ui/login/ui/login_screen.dart';
+
 import 'package:notice_board/features/home/ui/custom_navbar.dart';
 import 'package:notice_board/features/home/ui/home.dart';
 
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: CustomBottomNavigationBar(),
+      home: LoginScreen(),
     );
   }
 }
