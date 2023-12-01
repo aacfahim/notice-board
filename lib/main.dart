@@ -4,6 +4,7 @@ import 'package:notice_board/features/auth/ui/login/ui/login_screen.dart';
 
 import 'package:notice_board/features/home/ui/custom_navbar.dart';
 import 'package:notice_board/features/home/ui/home.dart';
+import 'package:notice_board/features/notice_detail/ui/notice_detail_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: NoticeDetailScreen(title: "বিজ্ঞপ্তি"),
     );
   }
 }
