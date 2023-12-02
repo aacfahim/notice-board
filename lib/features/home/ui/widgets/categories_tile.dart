@@ -13,7 +13,7 @@ class CategoryTile extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Container(
-      width: width * .33,
+      width: width * .37,
       decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [

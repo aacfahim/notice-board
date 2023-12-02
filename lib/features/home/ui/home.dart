@@ -27,11 +27,11 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             HomeAppBar(subtitle: "Let's see the update notice"),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                children: [
-                  Container(
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Container(
                     padding:
                         const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                     // height: height * 0.20,
@@ -42,8 +42,11 @@ class _HomeState extends State<Home> {
                     ),
                     child: CriteriaWidget(),
                   ),
-                  SizedBox(height: height * 0.02),
-                  Row(
+                ),
+                SizedBox(height: height * 0.02),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -53,33 +56,38 @@ class _HomeState extends State<Home> {
                       Text("See all")
                     ],
                   ),
-                  SizedBox(height: height * 0.01),
-                  Container(
-                      width: double.infinity,
-                      height: height * .2,
-                      child: Center(
-                        child: Container(
-                          height: 150,
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 20,
-                            itemBuilder: (index, context) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 8.0),
-                                child: CategoryTile(
-                                  noticesCount: 30,
-                                  title: "Hello world",
-                                ),
-                              );
-                            },
-                            separatorBuilder: (index, context) =>
-                                SizedBox(width: 15),
-                          ),
+                ),
+                SizedBox(height: height * 0.01),
+                Container(
+                    // padding: const EdgeInsets.only(left: 10),
+
+                    width: double.infinity,
+                    height: height * .2,
+                    child: Center(
+                      child: Container(
+                        height: 150,
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 20,
+                          itemBuilder: (index, context) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 8.0),
+                              child: CategoryTile(
+                                noticesCount: 30,
+                                title: "Hello world",
+                              ),
+                            );
+                          },
+                          separatorBuilder: (index, context) =>
+                              SizedBox(width: 15),
                         ),
-                      )),
-                  SizedBox(height: height * 0.02),
-                  Row(
+                      ),
+                    )),
+                SizedBox(height: height * 0.02),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
@@ -89,10 +97,14 @@ class _HomeState extends State<Home> {
                       Text("See all")
                     ],
                   ),
-                  SizedBox(
-                    // height: double.maxFinite,
-                    height: height * 0.5,
-
+                ),
+                SizedBox(height: height * 0.02),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  height: height * 0.5,
+                  child: MediaQuery.removePadding(
+                    context: context,
+                    removeTop: true,
                     child: ListView.separated(
                         itemBuilder: (index, context) {
                           return NoticeTile(
@@ -106,8 +118,8 @@ class _HomeState extends State<Home> {
                             SizedBox(height: 12),
                         itemCount: 30),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),
