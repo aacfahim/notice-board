@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:notice_board/features/bookmark/ui/bookmark_screen.dart';
 
 import 'package:notice_board/features/category/ui/category_screen.dart';
+
 import 'package:notice_board/features/home/ui/home.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
