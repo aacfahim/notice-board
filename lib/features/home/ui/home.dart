@@ -54,37 +54,30 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                   SizedBox(height: height * 0.01),
-                  // Container(
-                  //   constraints: BoxConstraints(
-                  //     maxHeight: 100,
-                  //     minHeight: 10,
-                  //   ),
-                  //   color: Colors.blue,
-                  //   child: Container(
-                  //     height: 10,
-                  //     color: Colors.red,
-                  //   ),
-                  // ),
                   Container(
-                    // color: Colors.red,
-                    height: height * 0.15,
-
-                    // constraints: BoxConstraints(
-                    //   maxHeight: 100,
-                    //   minHeight: 20,
-                    // ),
-
-                    // height: 200,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 10,
-                      itemBuilder: (context, index) {
-                        return CategoryTile(
-                            title: "All Notices", noticesCount: 30);
-                      },
-                      separatorBuilder: (context, index) => SizedBox(width: 20),
-                    ),
-                  ),
+                      width: double.infinity,
+                      height: height * .2,
+                      child: Center(
+                        child: Container(
+                          height: 150,
+                          child: ListView.separated(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: 20,
+                            itemBuilder: (index, context) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
+                                child: CategoryTile(
+                                  noticesCount: 30,
+                                  title: "Hello world",
+                                ),
+                              );
+                            },
+                            separatorBuilder: (index, context) =>
+                                SizedBox(width: 15),
+                          ),
+                        ),
+                      )),
                   SizedBox(height: height * 0.02),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

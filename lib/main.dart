@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: NoticeDetailScreen(title: "বিজ্ঞপ্তি"),
+      home: CustomBottomNavigationBar(),
     );
   }
 }
