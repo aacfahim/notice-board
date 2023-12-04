@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:notice_board/features/auth/bloc/auth_bloc.dart';
 import 'package:notice_board/features/home/ui/widgets/categories_tile.dart';
 import 'package:notice_board/features/home/ui/widgets/criteria_widget.dart';
 import 'package:notice_board/features/home/ui/widgets/home_appbar.dart';
@@ -15,6 +16,14 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  AuthBloc authBloc = AuthBloc();
+
+  @override
+  void initState() {
+    authBloc.add(AuthInitialEvent());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;

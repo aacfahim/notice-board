@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:notice_board/features/auth/bloc/auth_bloc.dart';
 import 'package:notice_board/features/home/model/category_model.dart';
 
 part 'home_event.dart';
