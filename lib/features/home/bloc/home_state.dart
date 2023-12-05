@@ -9,10 +9,14 @@ abstract class HomeActionState extends HomeState {}
 
 final class HomeLoadingState extends HomeState {}
 
+final class HomeCategoryLoadingState extends HomeState {}
+
+final class HomeNoticeLoadingState extends HomeState {}
+
 class HomeNoticeFetchSuccessfulState extends HomeState {}
 
 class HomeCategoryFetchSuccessfulState extends HomeState {
-  final List<CategoryModel> categories;
+  final List<CategoryDataModel> categories;
 
   HomeCategoryFetchSuccessfulState({required this.categories});
 }

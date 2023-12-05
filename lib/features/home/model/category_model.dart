@@ -1,14 +1,14 @@
 class CategoryModel {
-  List<Data>? data;
+  List<CategoryDataModel>? data;
   Meta? meta;
 
   CategoryModel({this.data, this.meta});
 
   CategoryModel.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      data = <Data>[];
+      data = <CategoryDataModel>[];
       json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
+        data!.add(new CategoryDataModel.fromJson(v));
       });
     }
     meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
@@ -26,13 +26,13 @@ class CategoryModel {
   }
 }
 
-class Data {
+class CategoryDataModel {
   int? id;
   Attributes? attributes;
 
-  Data({this.id, this.attributes});
+  CategoryDataModel({this.id, this.attributes});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  CategoryDataModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     attributes = json['attributes'] != null
         ? new Attributes.fromJson(json['attributes'])

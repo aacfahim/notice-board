@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:notice_board/features/auth/bloc/auth_bloc.dart';
+import 'package:notice_board/features/home/bloc/home_bloc.dart';
 import 'package:notice_board/features/home/ui/widgets/categories_tile.dart';
+import 'package:notice_board/features/home/ui/widgets/category_tile_shimmer.dart';
 import 'package:notice_board/features/home/ui/widgets/criteria_widget.dart';
 import 'package:notice_board/features/home/ui/widgets/home_appbar.dart';
 import 'package:notice_board/features/home/ui/widgets/notice_tile.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../utils/const.dart';
 
@@ -16,11 +20,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  AuthBloc authBloc = AuthBloc();
+  HomeBloc homeBloc = HomeBloc();
 
   @override
   void initState() {
-    authBloc.add(AuthInitialEvent());
+    homeBloc.add(HomeInitialFetchEvent());
     super.initState();
   }
 
@@ -67,32 +71,76 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 SizedBox(height: height * 0.01),
-                Container(
-                    // padding: const EdgeInsets.only(left: 10),
+                BlocConsumer<HomeBloc, HomeState>(
+                  bloc: homeBloc,
+                  listener: (context, state) {
+                    // TODO: implement listener
+                  },
+                  builder: (context, state) {
+                    switch (state.runtimeType) {
+                      case HomeCategoryLoadingState:
+                        return Container(
+                          height: 150,
+                          child: Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 20,
+                              itemBuilder: (index, context) {
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 8.0),
+                                  child:
+                                      CategoryTileShimmer(), // Create a CategoryTileShimmer widget
+                                );
+                              },
+                              separatorBuilder: (index, context) =>
+                                  SizedBox(width: 15),
+                            ),
+                          ),
+                        );
+                      case HomeCategoryFetchSuccessfulState:
+                        final categorySuccessState =
+                            state as HomeCategoryFetchSuccessfulState;
+                        print(categorySuccessState.categories.length);
+                        return Container(
+                            // padding: const EdgeInsets.only(left: 10),
 
-                    width: double.infinity,
-                    height: height * .2,
-                    child: Center(
-                      child: Container(
-                        height: 150,
-                        child: ListView.separated(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 20,
-                          itemBuilder: (index, context) {
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
-                              child: CategoryTile(
-                                noticesCount: 30,
-                                title: "Hello world",
+                            width: double.infinity,
+                            height: height * .2,
+                            child: Center(
+                              child: Container(
+                                height: 150,
+                                child: ListView.separated(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount:
+                                      categorySuccessState.categories.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8.0),
+                                      child: CategoryTile(
+                                          noticesCount: 30,
+                                          title: categorySuccessState
+                                              .categories[index]
+                                              .attributes!
+                                              .name
+                                              .toString()
+                                          // title: "Hello",
+                                          ),
+                                    );
+                                  },
+                                  separatorBuilder: (context, index) =>
+                                      SizedBox(width: 15),
+                                ),
                               ),
-                            );
-                          },
-                          separatorBuilder: (index, context) =>
-                              SizedBox(width: 15),
-                        ),
-                      ),
-                    )),
+                            ));
+                      default:
+                        return const SizedBox.shrink();
+                    }
+                  },
+                ),
                 SizedBox(height: height * 0.02),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
