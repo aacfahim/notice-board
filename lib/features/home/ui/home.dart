@@ -8,6 +8,7 @@ import 'package:notice_board/features/home/ui/widgets/category_tile_shimmer.dart
 import 'package:notice_board/features/home/ui/widgets/criteria_widget.dart';
 import 'package:notice_board/features/home/ui/widgets/home_appbar.dart';
 import 'package:notice_board/features/home/ui/widgets/notice_tile.dart';
+import 'package:notice_board/features/home/ui/widgets/notice_tile_shimmer.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../utils/const.dart';
@@ -103,7 +104,7 @@ class _HomeState extends State<Home> {
                       case HomeCategoryFetchSuccessfulState:
                         final categorySuccessState =
                             state as HomeCategoryFetchSuccessfulState;
-                        print(categorySuccessState.categories.length);
+
                         return Container(
                             // padding: const EdgeInsets.only(left: 10),
 
@@ -156,25 +157,63 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 SizedBox(height: height * 0.02),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  height: height * 0.5,
-                  child: MediaQuery.removePadding(
-                    context: context,
-                    removeTop: true,
-                    child: ListView.separated(
-                        itemBuilder: (index, context) {
-                          return NoticeTile(
-                            title:
-                                "বাংলাদেশ হাউজ বিল্ডিং ফাইনান্স কর্পোরেশন এর নিয়োগ পরিক্ষা সময়সূচী - ০৮/০৯ ",
-                            noticeType: "Exam Notice",
-                            date: "25 Aug 2023",
-                          );
-                        },
-                        separatorBuilder: (index, context) =>
-                            SizedBox(height: 12),
-                        itemCount: 30),
-                  ),
+                BlocConsumer<HomeBloc, HomeState>(
+                  bloc: homeBloc,
+                  listener: (context, state) {
+                    // TODO: implement listener
+                  },
+                  builder: (context, state) {
+                    switch (state.runtimeType) {
+                      case HomeNoticeTileLoadingState:
+                        return Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            height: height * 0.5,
+                            child: ListView.separated(
+                                itemBuilder: (index, context) {
+                                  return NoticeTileShimmer();
+                                },
+                                separatorBuilder: (index, context) =>
+                                    SizedBox(height: 12),
+                                itemCount: 30),
+                          ),
+                        );
+
+                      case HomeNoticeTileFetchSuccessfulState:
+                        final noticeTileState =
+                            state as HomeNoticeTileFetchSuccessfulState;
+                        return Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          height: height * 0.5,
+                          child: MediaQuery.removePadding(
+                            context: context,
+                            removeTop: true,
+                            child: ListView.separated(
+                                itemBuilder: (context, index) {
+                                  return NoticeTile(
+                                    title: noticeTileState
+                                        .notices[index].attributes!.title
+                                        .toString(),
+                                    noticeType: noticeTileState
+                                        .notices[index].attributes!.tag
+                                        .toString(),
+                                    date: noticeTileState
+                                        .notices[index].attributes!.date
+                                        .toString(),
+                                  );
+                                },
+                                separatorBuilder: (index, context) =>
+                                    SizedBox(height: 12),
+                                itemCount: noticeTileState.notices.length),
+                          ),
+                        );
+
+                      default:
+                        return SizedBox.shrink();
+                    }
+                  },
                 ),
               ],
             ),

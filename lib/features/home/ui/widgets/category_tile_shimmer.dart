@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class CategoryTileShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Container(
-      width: 120, // Adjust the width based on your design
+      width: width * .37,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(8.0),
@@ -13,7 +14,7 @@ class CategoryTileShimmer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 100, // Adjust the height based on your design
+            width: width * .37,
             color: Colors.grey[300],
           ),
           SizedBox(height: 8),
