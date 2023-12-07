@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:notice_board/features/auth/bloc/auth_bloc.dart';
-import 'package:notice_board/features/home/bloc/home_bloc.dart';
+import 'package:notice_board/features/category/bloc/category_bloc.dart';
+
 import 'package:notice_board/features/home/ui/widgets/categories_tile.dart';
 import 'package:notice_board/features/home/ui/widgets/category_tile_shimmer.dart';
 import 'package:notice_board/features/home/ui/widgets/criteria_widget.dart';
 import 'package:notice_board/features/home/ui/widgets/home_appbar.dart';
 import 'package:notice_board/features/home/ui/widgets/notice_tile.dart';
 import 'package:notice_board/features/home/ui/widgets/notice_tile_shimmer.dart';
+import 'package:notice_board/features/notice_detail/bloc/notice_bloc.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../utils/const.dart';
@@ -21,11 +21,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  HomeBloc homeBloc = HomeBloc();
+  // HomeBloc homeBloc = HomeBloc();
+  CategoryBloc categoryBloc = CategoryBloc();
+  NoticeBloc noticeBloc = NoticeBloc();
 
   @override
   void initState() {
-    homeBloc.add(HomeInitialFetchEvent());
+    // homeBloc.add(HomeInitialFetchEvent());
+    categoryBloc.add(HomeInitialCategoryFetchEvent());
+    noticeBloc.add(HomeInitialNoticeFetchEvent());
+
     super.initState();
   }
 
@@ -72,8 +77,8 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 SizedBox(height: height * 0.01),
-                BlocConsumer<HomeBloc, HomeState>(
-                  bloc: homeBloc,
+                BlocConsumer<CategoryBloc, CategoryState>(
+                  bloc: categoryBloc,
                   listener: (context, state) {
                     // TODO: implement listener
                   },
@@ -157,14 +162,14 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 SizedBox(height: height * 0.02),
-                BlocConsumer<HomeBloc, HomeState>(
-                  bloc: homeBloc,
+                BlocConsumer<NoticeBloc, NoticeState>(
+                  bloc: noticeBloc,
                   listener: (context, state) {
                     // TODO: implement listener
                   },
                   builder: (context, state) {
                     switch (state.runtimeType) {
-                      case HomeNoticeTileLoadingState:
+                      case HomeNoticeLoadingState:
                         return Shimmer.fromColors(
                           baseColor: Colors.grey[300]!,
                           highlightColor: Colors.grey[100]!,
@@ -181,9 +186,9 @@ class _HomeState extends State<Home> {
                           ),
                         );
 
-                      case HomeNoticeTileFetchSuccessfulState:
+                      case HomeNoticeFetchSuccessfulState:
                         final noticeTileState =
-                            state as HomeNoticeTileFetchSuccessfulState;
+                            state as HomeNoticeFetchSuccessfulState;
                         return Container(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           height: height * 0.5,
