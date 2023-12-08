@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notice_board/features/bookmark/ui/bookmark_screen.dart';
 import 'package:notice_board/features/category/bloc/category_bloc.dart';
+import 'package:notice_board/features/category/ui/category_screen.dart';
+import 'package:notice_board/features/home/bloc/home_bloc.dart';
 
 import 'package:notice_board/features/home/ui/widgets/categories_tile.dart';
 import 'package:notice_board/features/home/ui/widgets/category_tile_shimmer.dart';
@@ -21,7 +24,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  // HomeBloc homeBloc = HomeBloc();
+  HomeBloc homeBloc = HomeBloc();
   CategoryBloc categoryBloc = CategoryBloc();
   NoticeBloc noticeBloc = NoticeBloc();
 
@@ -72,16 +75,24 @@ class _HomeState extends State<Home> {
                         "Categories",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Text("See all")
+                      InkWell(
+                          onTap: () {
+                            homeBloc.add(HomeCategorySeeAllEvent());
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CategoryScreen(),
+                              ),
+                            );
+                          },
+                          child: Text("See all"))
                     ],
                   ),
                 ),
                 SizedBox(height: height * 0.01),
                 BlocConsumer<CategoryBloc, CategoryState>(
                   bloc: categoryBloc,
-                  listener: (context, state) {
-                    // TODO: implement listener
-                  },
+                  listener: (context, state) {},
                   builder: (context, state) {
                     switch (state.runtimeType) {
                       case HomeCategoryLoadingState:
@@ -157,16 +168,24 @@ class _HomeState extends State<Home> {
                         "All Notice",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      Text("See all")
+                      InkWell(
+                          onTap: () {
+                            homeBloc.add(HomeNoticeSeeAllEvent());
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CategoryScreen(),
+                              ),
+                            );
+                          },
+                          child: Text("See all"))
                     ],
                   ),
                 ),
                 SizedBox(height: height * 0.02),
                 BlocConsumer<NoticeBloc, NoticeState>(
                   bloc: noticeBloc,
-                  listener: (context, state) {
-                    // TODO: implement listener
-                  },
+                  listener: (context, state) {},
                   builder: (context, state) {
                     switch (state.runtimeType) {
                       case HomeNoticeLoadingState:
