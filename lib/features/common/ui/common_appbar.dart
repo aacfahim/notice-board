@@ -9,7 +9,8 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.white,
-      elevation: 2,
+      // shadowColor: Colors.grey,
+      // elevation: 2,
       leading: Padding(
         padding: const EdgeInsets.all(4.0),
         child: GestureDetector(
@@ -18,18 +19,16 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
               MaterialPageRoute(
                   builder: (context) => CustomBottomNavigationBar())),
           child: Card(
-            elevation: 2,
+            // elevation: 3,
             child: Container(
-              decoration: BoxDecoration(
-                  //   boxShadow: [
-                  //   BoxShadow(
-                  //     color: Colors.grey,
-                  //     offset: Offset(0.0, 1.0), //(x,y)
-                  //     // blurRadius: 1.0,
-                  //   ),
-                  // ],
-                  color: Color(0xffF5F6F7),
-                  borderRadius: BorderRadius.circular(8.0)),
+              decoration: BoxDecoration(boxShadow: [
+                BoxShadow(
+                  color: const Color.fromARGB(255, 196, 195, 195),
+                  offset: Offset(1.0, 1.0),
+                  blurRadius: 2.5,
+                  spreadRadius: 0.0,
+                ),
+              ], color: Colors.white, borderRadius: BorderRadius.circular(6.0)),
               child: Image.asset("assets/back_button.png"),
             ),
           ),

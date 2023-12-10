@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notice_board/features/home/ui/widgets/common_appbar.dart';
+import 'package:notice_board/features/common/ui/common_appbar.dart';
 import 'package:notice_board/features/home/ui/widgets/notice_tile.dart';
 
 class BookmarkScreen extends StatelessWidget {

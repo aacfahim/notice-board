@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notice_board/features/home/ui/widgets/categories_tile.dart';
-import 'package:notice_board/features/home/ui/widgets/common_appbar.dart';
+import 'package:notice_board/features/common/ui/common_appbar.dart';
 
 class CategoryScreen extends StatelessWidget {
   const CategoryScreen({super.key});
