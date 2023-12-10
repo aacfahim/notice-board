@@ -4,6 +4,7 @@ import 'package:notice_board/features/bookmark/ui/bookmark_screen.dart';
 import 'package:notice_board/features/category/ui/category_screen.dart';
 
 import 'package:notice_board/features/home/ui/home.dart';
+import 'package:notice_board/features/more/ui/more_screen.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
@@ -46,7 +47,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           Home(),
           CategoryScreen(),
           BookmarkScreen(),
-          BookmarkScreen(),
+          MoreScreen(),
         ],
       ),
       bottomNavigationBar: Container(
