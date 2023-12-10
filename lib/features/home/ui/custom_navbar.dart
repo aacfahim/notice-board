@@ -34,6 +34,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
@@ -51,6 +52,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         ],
       ),
       bottomNavigationBar: Container(
+        height: height * 0.09,
         decoration: const BoxDecoration(
             color: Colors.white,
             boxShadow: [
