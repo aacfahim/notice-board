@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notice_board/features/common/ui/common_appbar.dart';
 import 'package:notice_board/features/home/ui/widgets/notice_tile.dart';
+import 'package:notice_board/features/home/ui/widgets/notice_tile_shimmer.dart';
+import 'package:shimmer/shimmer.dart';
 
 class BookmarkScreen extends StatelessWidget {
   const BookmarkScreen({super.key});
@@ -24,11 +26,17 @@ class BookmarkScreen extends StatelessWidget {
                   itemCount: 30,
                   separatorBuilder: (index, _) => SizedBox(height: 10),
                   itemBuilder: (context, index) {
-                    return NoticeTile(
-                        noticeType: "Exam Notice",
-                        title:
-                            "অর্নাস ৩য় ও ৪র্থ বর্ষের পরিক্ষার ফলাফল ঘোষনা করা হবে আগামী ৩ তারিখে",
-                        date: "25 Sept 2023");
+                    // return NoticeTile(
+                    //     noticeType: "Exam Notice",
+                    //     title:
+                    //         "অর্নাস ৩য় ও ৪র্থ বর্ষের পরিক্ষার ফলাফল ঘোষনা করা হবে আগামী ৩ তারিখে",
+                    //     date: "25 Sept 2023");
+
+                    return Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: NoticeTileShimmer(),
+                    );
                   }),
             )
           ],

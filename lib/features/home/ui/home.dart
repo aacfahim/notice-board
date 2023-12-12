@@ -12,6 +12,7 @@ import 'package:notice_board/features/home/ui/widgets/home_appbar.dart';
 import 'package:notice_board/features/home/ui/widgets/notice_tile.dart';
 import 'package:notice_board/features/home/ui/widgets/notice_tile_shimmer.dart';
 import 'package:notice_board/features/notice_detail/bloc/notice_bloc.dart';
+import 'package:notice_board/features/notice_detail/ui/all_notice.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../utils/const.dart';
@@ -174,7 +175,7 @@ class _HomeState extends State<Home> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => CategoryScreen(),
+                                builder: (context) => AllNoticeList(),
                               ),
                             );
                           },
