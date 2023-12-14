@@ -21,55 +21,62 @@ class _CategoryScreenState extends State<CategoryScreen> {
     super.initState();
   }
 
+  Future<void> _refreshData() async {
+    categoryBloc.add(HomeInitialCategoryFetchEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonAppBar(text: "Categories"),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 10.0, right: 10, top: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Categories",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            ),
-            SizedBox(height: 8),
-            Expanded(
-              child: BlocConsumer<CategoryBloc, CategoryState>(
-                bloc: categoryBloc,
-                listener: (context, state) {},
-                builder: (context, state) {
-                  switch (state.runtimeType) {
-                    case HomeCategoryLoadingState:
-                      return CategoryGridShimmer();
-                    case HomeCategoryFetchSuccessfulState:
-                      final categoryState =
-                          state as HomeCategoryFetchSuccessfulState;
-                      return GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 12.0,
-                            crossAxisSpacing: 16.0,
-                          ),
-                          padding: EdgeInsets.all(6.0),
-                          itemCount: categoryState.categories.length,
-                          itemBuilder: (context, index) {
-                            return CategoryTile(
-                              title: categoryState
-                                  .categories[index].attributes!.name
-                                  .toString(),
-                              noticesCount: 10,
-                            );
-                          });
-                    default:
-                      return SizedBox.shrink();
-                  }
-                },
+      body: RefreshIndicator(
+        onRefresh: _refreshData,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10.0, right: 10, top: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Categories",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
-            ),
-          ],
+              SizedBox(height: 8),
+              Expanded(
+                child: BlocConsumer<CategoryBloc, CategoryState>(
+                  bloc: categoryBloc,
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    switch (state.runtimeType) {
+                      case HomeCategoryLoadingState:
+                        return CategoryGridShimmer();
+                      case HomeCategoryFetchSuccessfulState:
+                        final categoryState =
+                            state as HomeCategoryFetchSuccessfulState;
+                        return GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 12.0,
+                              crossAxisSpacing: 16.0,
+                            ),
+                            padding: EdgeInsets.all(6.0),
+                            itemCount: categoryState.categories.length,
+                            itemBuilder: (context, index) {
+                              return CategoryTile(
+                                title: categoryState
+                                    .categories[index].attributes!.name
+                                    .toString(),
+                                noticesCount: 10,
+                              );
+                            });
+                      default:
+                        return SizedBox.shrink();
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
