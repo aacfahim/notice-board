@@ -33,7 +33,7 @@ class BookmarkScreen extends StatelessWidget {
                     //     date: "25 Sept 2023");
 
                     return Shimmer.fromColors(
-                      baseColor: Colors.grey[300]!,
+                      baseColor: Colors.grey[200]!,
                       highlightColor: Colors.grey[100]!,
                       child: NoticeTileShimmer(),
                     );

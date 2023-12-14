@@ -17,7 +17,7 @@ class CategoryGridShimmer extends StatelessWidget {
       itemCount: 30,
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
-          baseColor: Colors.grey[300]!,
+          baseColor: Colors.grey[200]!,
           highlightColor: Colors.grey[100]!,
           child: CategoryTile(title: "", noticesCount: 0),
         );
