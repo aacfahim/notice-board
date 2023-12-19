@@ -4,3 +4,5 @@ part of 'notice_bloc.dart';
 sealed class NoticeEvent {}
 
 class HomeInitialNoticeFetchEvent extends NoticeEvent {}
+
+class HomeNoticeErrorEvent extends NoticeEvent {}

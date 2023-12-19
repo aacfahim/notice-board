@@ -11,6 +11,7 @@ part 'notice_state.dart';
 class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
   NoticeBloc() : super(NoticeInitial()) {
     on<HomeInitialNoticeFetchEvent>(homeInitialNoticeFetchEvent);
+    on<HomeNoticeErrorEvent>(homeNoticeErrorEvent);
   }
 
   FutureOr<void> homeInitialNoticeFetchEvent(
@@ -19,6 +20,13 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
     emit(HomeNoticeLoadingState());
     List<NoticeTileDataModel> notices = await NoticeServices.fetchNoticeTile();
     print("Notice Fetched");
+
     emit(HomeNoticeFetchSuccessfulState(notices: notices));
+  }
+
+  FutureOr<void> homeNoticeErrorEvent(
+      HomeNoticeErrorEvent event, Emitter<NoticeState> emit) {
+    emit(HomeNoticeErrorState());
+    print("Notice Error state");
   }
 }

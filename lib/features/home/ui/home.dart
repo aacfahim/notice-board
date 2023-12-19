@@ -44,6 +44,14 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  void dispose() {
+    homeBloc.close();
+    categoryBloc.close();
+    noticeBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -198,7 +206,7 @@ class _HomeState extends State<Home> {
                       switch (state.runtimeType) {
                         case HomeNoticeLoadingState:
                           return Shimmer.fromColors(
-                            baseColor: Colors.grey[300]!,
+                            baseColor: Colors.grey[200]!,
                             highlightColor: Colors.grey[100]!,
                             child: Container(
                               padding:
@@ -242,6 +250,9 @@ class _HomeState extends State<Home> {
                                   itemCount: noticeTileState.notices.length),
                             ),
                           );
+
+                        case HomeNoticeErrorState:
+                          return Center(child: Text("Something went wrong"));
 
                         default:
                           return SizedBox.shrink();

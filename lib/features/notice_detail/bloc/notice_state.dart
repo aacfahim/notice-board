@@ -12,3 +12,5 @@ class HomeNoticeFetchSuccessfulState extends NoticeState {
 
   HomeNoticeFetchSuccessfulState({required this.notices});
 }
+
+final class HomeNoticeErrorState extends NoticeState {}
