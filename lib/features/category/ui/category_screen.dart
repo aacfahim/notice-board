@@ -12,8 +12,12 @@ class CategoryScreen extends StatefulWidget {
   State<CategoryScreen> createState() => _CategoryScreenState();
 }
 
-class _CategoryScreenState extends State<CategoryScreen> {
+class _CategoryScreenState extends State<CategoryScreen>
+    with AutomaticKeepAliveClientMixin {
   CategoryBloc categoryBloc = CategoryBloc();
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -27,6 +31,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       appBar: CommonAppBar(text: "Categories"),
       body: RefreshIndicator(

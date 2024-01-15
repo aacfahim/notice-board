@@ -25,10 +25,13 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
   HomeBloc homeBloc = HomeBloc();
   CategoryBloc categoryBloc = CategoryBloc();
   NoticeBloc noticeBloc = NoticeBloc();
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -54,6 +57,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
 
