@@ -13,6 +13,7 @@ import 'package:notice_board/features/home/ui/widgets/notice_tile.dart';
 import 'package:notice_board/features/home/ui/widgets/notice_tile_shimmer.dart';
 import 'package:notice_board/features/notice_detail/bloc/notice_bloc.dart';
 import 'package:notice_board/features/notice_detail/ui/all_notice.dart';
+import 'package:notice_board/features/notice_detail/ui/notice_detail_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../utils/const.dart';
@@ -233,16 +234,29 @@ class _HomeState extends State<Home> {
                               removeTop: true,
                               child: ListView.separated(
                                   itemBuilder: (context, index) {
-                                    return NoticeTile(
-                                      title: noticeTileState
-                                          .notices[index].attributes!.title
-                                          .toString(),
-                                      noticeType: noticeTileState
-                                          .notices[index].attributes!.tag
-                                          .toString(),
-                                      date: noticeTileState
-                                          .notices[index].attributes!.date
-                                          .toString(),
+                                    return InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  NoticeDetailScreen(
+                                                      data: noticeTileState
+                                                          .notices[index])),
+                                        );
+                                      },
+                                      child: NoticeTile(
+                                        title: noticeTileState
+                                            .notices[index].attributes!.title
+                                            .toString(),
+                                        // noticeType: noticeTileState
+                                        //     .notices[index].attributes!.tag
+                                        //     .toString(),
+                                        noticeType: "N/A",
+                                        date: noticeTileState.notices[index]
+                                            .attributes!.dateInNotice
+                                            .toString(),
+                                      ),
                                     );
                                   },
                                   separatorBuilder: (index, context) =>

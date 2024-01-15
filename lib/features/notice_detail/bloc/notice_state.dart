@@ -8,7 +8,7 @@ final class NoticeInitial extends NoticeState {}
 final class HomeNoticeLoadingState extends NoticeState {}
 
 class HomeNoticeFetchSuccessfulState extends NoticeState {
-  final List<NoticeTileDataModel> notices;
+  final List<NoticeDataModel> notices;
 
   HomeNoticeFetchSuccessfulState({required this.notices});
 }

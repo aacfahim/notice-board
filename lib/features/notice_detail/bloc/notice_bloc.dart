@@ -18,7 +18,7 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
       HomeInitialNoticeFetchEvent event, Emitter<NoticeState> emit) async {
     ///NOTICE TILE
     emit(HomeNoticeLoadingState());
-    List<NoticeTileDataModel> notices = await NoticeServices.fetchNoticeTile();
+    List<NoticeDataModel> notices = await NoticeServices.fetchNoticeTile();
     print("Notice Fetched");
 
     emit(HomeNoticeFetchSuccessfulState(notices: notices));

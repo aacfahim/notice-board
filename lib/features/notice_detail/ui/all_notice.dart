@@ -78,12 +78,14 @@ class _AllNoticeListState extends State<AllNoticeList> {
                               title: noticeState
                                   .notices[index].attributes!.title
                                   .toString(),
-                              date: noticeState.notices[index].attributes!.date
+                              date: noticeState
+                                  .notices[index].attributes!.dateInNotice
                                   .toString(),
                               bookmarked: false,
-                              noticeType: noticeState
-                                  .notices[index].attributes!.tag
-                                  .toString(),
+                              // noticeType: noticeState
+                              //     .notices[index].attributes!.ta
+                              //     .toString(),
+                              noticeType: "N/A",
                             );
                           });
 

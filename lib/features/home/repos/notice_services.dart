@@ -9,11 +9,11 @@ import 'package:http/http.dart' as http;
 import '../../../utils/api_url.dart';
 
 class NoticeServices {
-  static Future<List<NoticeTileDataModel>> fetchNoticeTile() async {
+  static Future<List<NoticeDataModel>> fetchNoticeTile() async {
     NoticeBloc noticeBloc = NoticeBloc();
     String categoryUrl = BASE_URL + NOTICES;
     var client = http.Client();
-    List<NoticeTileDataModel> notices = [];
+    List<NoticeDataModel> notices = [];
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var response = await client.get(Uri.parse(categoryUrl), headers: {
@@ -25,7 +25,7 @@ class NoticeServices {
         var data = jsonDecode(response.body);
 
         for (var i in data['data']) {
-          notices.add(NoticeTileDataModel.fromJson(i));
+          notices.add(NoticeDataModel.fromJson(i));
         }
 
         print("notice tile data: " + jsonEncode(data));
