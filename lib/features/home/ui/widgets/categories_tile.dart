@@ -3,10 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:notice_board/utils/const.dart';
 
 class CategoryTile extends StatelessWidget {
-  const CategoryTile(
-      {super.key, required this.title, required this.noticesCount});
+  CategoryTile({super.key, required this.title, this.noticesCount});
   final String title;
-  final int noticesCount;
+  int? noticesCount;
 
   @override
   Widget build(BuildContext context) {
@@ -26,30 +25,34 @@ class CategoryTile extends StatelessWidget {
           ],
           borderRadius: BorderRadius.circular(12)),
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child:
+            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+          SvgPicture.asset(
+            "assets/category_icon.svg",
+            fit: BoxFit.cover,
+          ),
+          // SizedBox(height: 6),
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SvgPicture.asset(
-                "assets/category_icon.svg",
-                fit: BoxFit.cover,
+              Text(
+                title,
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 6),
-              Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Text(
-                    title,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  )),
-              SizedBox(height: 3),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("$noticesCount notices"),
-                  Icon(Icons.arrow_forward, color: PRIMARY_COLOR),
-                ],
-              ),
-            ]),
+              Icon(Icons.arrow_forward, color: PRIMARY_COLOR),
+            ],
+          ),
+          // SizedBox(height: 3),
+          // Row(
+          //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   mainAxisAlignment: MainAxisAlignment.end,
+          //   children: [
+          //     // Text("$noticesCount notices"),
+          //     Icon(Icons.arrow_forward, color: PRIMARY_COLOR),
+          //   ],
+          // ),
+        ]),
       ),
     );
   }

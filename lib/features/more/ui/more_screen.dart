@@ -29,7 +29,7 @@ class MoreScreen extends StatelessWidget {
         ),
         divider(),
       ]),
-      appBar: CommonAppBar(text: "More links"),
+      appBar: CommonAppBar(text: "More links", isBack: false),
     );
   }
 }

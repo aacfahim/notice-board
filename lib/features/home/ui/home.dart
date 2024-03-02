@@ -7,12 +7,13 @@ import 'package:notice_board/features/home/bloc/home_bloc.dart';
 
 import 'package:notice_board/features/home/ui/widgets/categories_tile.dart';
 import 'package:notice_board/features/home/ui/widgets/category_tile_shimmer.dart';
-import 'package:notice_board/features/home/ui/widgets/criteria_widget.dart';
+import 'package:notice_board/features/home/ui/widgets/preference_widget.dart';
 import 'package:notice_board/features/home/ui/widgets/home_appbar.dart';
 import 'package:notice_board/features/home/ui/widgets/notice_tile.dart';
 import 'package:notice_board/features/home/ui/widgets/notice_tile_shimmer.dart';
 import 'package:notice_board/features/notice_detail/bloc/notice_bloc.dart';
 import 'package:notice_board/features/notice_detail/ui/all_notice.dart';
+import 'package:notice_board/features/notice_detail/ui/categorized_notice.dart';
 import 'package:notice_board/features/notice_detail/ui/notice_detail_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -83,7 +84,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                         color: PRIMARY_COLOR,
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child: CriteriaWidget(),
+                      child: PreferenceWidget(),
                     ),
                   ),
                   SizedBox(height: height * 0.02),
@@ -102,7 +103,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => CategoryScreen(),
+                                  builder: (context) =>
+                                      CategoryScreen(isBack: true),
                                 ),
                               );
                             },
@@ -158,15 +160,37 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                       return Padding(
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 8.0),
-                                        child: CategoryTile(
-                                            noticesCount: 30,
-                                            title: categorySuccessState
-                                                .categories[index]
-                                                .attributes!
-                                                .name
-                                                .toString()
-                                            // title: "Hello",
-                                            ),
+                                        child: InkWell(
+                                          onTap: () {
+                                            String category =
+                                                categorySuccessState
+                                                    .categories[index]
+                                                    .attributes!
+                                                    .name
+                                                    .toString();
+
+                                            // noticeBloc.add(
+                                            //     CategorizedNoticeFetchEvent(
+                                            //         category));
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CategorizedNoticeList(
+                                                        category: category),
+                                              ),
+                                            );
+                                          },
+                                          child: CategoryTile(
+                                              // noticesCount: 30,
+                                              title: categorySuccessState
+                                                  .categories[index]
+                                                  .attributes!
+                                                  .name
+                                                  .toString()
+                                              // title: "Hello",
+                                              ),
+                                        ),
                                       );
                                     },
                                     separatorBuilder: (context, index) =>

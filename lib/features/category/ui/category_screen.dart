@@ -4,9 +4,11 @@ import 'package:notice_board/features/category/bloc/category_bloc.dart';
 import 'package:notice_board/features/category/ui/widgets/category_grid_shimmer.dart';
 import 'package:notice_board/features/home/ui/widgets/categories_tile.dart';
 import 'package:notice_board/features/common/ui/common_appbar.dart';
+import 'package:notice_board/features/notice_detail/ui/categorized_notice.dart';
 
 class CategoryScreen extends StatefulWidget {
-  const CategoryScreen({super.key});
+  CategoryScreen({super.key, this.isBack = false});
+  final bool isBack;
 
   @override
   State<CategoryScreen> createState() => _CategoryScreenState();
@@ -33,7 +35,7 @@ class _CategoryScreenState extends State<CategoryScreen>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: CommonAppBar(text: "Categories"),
+      appBar: CommonAppBar(text: "Categories", isBack: widget.isBack),
       body: RefreshIndicator(
         onRefresh: _refreshData,
         child: Padding(
@@ -67,11 +69,29 @@ class _CategoryScreenState extends State<CategoryScreen>
                             padding: EdgeInsets.all(6.0),
                             itemCount: categoryState.categories.length,
                             itemBuilder: (context, index) {
-                              return CategoryTile(
-                                title: categoryState
-                                    .categories[index].attributes!.name
-                                    .toString(),
-                                noticesCount: 10,
+                              return InkWell(
+                                onTap: () {
+                                  String category = categoryState
+                                      .categories[index].attributes!.name
+                                      .toString();
+
+                                  // noticeBloc.add(
+                                  //     CategorizedNoticeFetchEvent(
+                                  //         category));
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          CategorizedNoticeList(
+                                              category: category),
+                                    ),
+                                  );
+                                },
+                                child: CategoryTile(
+                                  title: categoryState
+                                      .categories[index].attributes!.name
+                                      .toString(),
+                                ),
                               );
                             });
                       default:

@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:notice_board/features/home/ui/widgets/show_dialogue_criteria.dart';
 import 'package:notice_board/utils/const.dart';
 
-class CriteriaWidget extends StatelessWidget {
-  const CriteriaWidget({
+class PreferenceWidget extends StatelessWidget {
+  const PreferenceWidget({
     super.key,
   });
 
@@ -58,7 +58,7 @@ class CriteriaWidget extends StatelessWidget {
               );
             },
             child: Text(
-              "Add your criteria",
+              "Add your preference",
               style: TextStyle(fontSize: 12),
             ))
       ],

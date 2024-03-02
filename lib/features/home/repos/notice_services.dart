@@ -46,4 +46,67 @@ class NoticeServices {
 
     return [];
   }
+
+  static Future<List<NoticeDataModel>> fetchCategorizedNoticeTile(
+      String category) async {
+    String categoryId;
+    switch (category) {
+      case "Exam Notice":
+        categoryId = "2";
+        break;
+      case "Special Notice":
+        categoryId = "3";
+        break;
+      case "Leave Notice":
+        categoryId = "4";
+        break;
+      case "Result Notice":
+        categoryId = "6";
+        break;
+      default:
+        categoryId = "1";
+    }
+    NoticeBloc noticeBloc = NoticeBloc();
+    String categoryUrl;
+
+    if (categoryId != "1") {
+      categoryUrl = BASE_URL + GET_CATEGORIZED_NOTICES + categoryId;
+    } else {
+      categoryUrl = BASE_URL + NOTICES;
+    }
+
+    var client = http.Client();
+    List<NoticeDataModel> notices = [];
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var response = await client.get(Uri.parse(categoryUrl), headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+        HttpHeaders.authorizationHeader: "Bearer ${prefs.getString("token")}"
+      });
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = jsonDecode(response.body);
+
+        for (var i in data['data']) {
+          notices.add(NoticeDataModel.fromJson(i));
+        }
+
+        print("notice tile data: " + jsonEncode(data));
+
+        return notices;
+      } else {
+        print("notice tile data: " +
+            response.statusCode.toString() +
+            " " +
+            response.body);
+      }
+    } catch (e) {
+      print("exception during notice fetch: " + e.toString());
+      noticeBloc.add(HomeNoticeErrorEvent());
+    } finally {
+      client.close();
+    }
+
+    return [];
+  }
 }

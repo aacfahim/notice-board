@@ -17,28 +17,29 @@ class BookmarkScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Bookmark",
+              "Coming Soon",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             SizedBox(height: 8),
-            Expanded(
-              child: ListView.separated(
-                  itemCount: 30,
-                  separatorBuilder: (index, _) => SizedBox(height: 10),
-                  itemBuilder: (context, index) {
-                    // return NoticeTile(
-                    //     noticeType: "Exam Notice",
-                    //     title:
-                    //         "অর্নাস ৩য় ও ৪র্থ বর্ষের পরিক্ষার ফলাফল ঘোষনা করা হবে আগামী ৩ তারিখে",
-                    //     date: "25 Sept 2023");
 
-                    return Shimmer.fromColors(
-                      baseColor: Colors.grey[200]!,
-                      highlightColor: Colors.grey[100]!,
-                      child: NoticeTileShimmer(),
-                    );
-                  }),
-            )
+            // Expanded(
+            //   child: ListView.separated(
+            //       itemCount: 30,
+            //       separatorBuilder: (index, _) => SizedBox(height: 10),
+            //       itemBuilder: (context, index) {
+            //         // return NoticeTile(
+            //         //     noticeType: "Exam Notice",
+            //         //     title:
+            //         //         "অর্নাস ৩য় ও ৪র্থ বর্ষের পরিক্ষার ফলাফল ঘোষনা করা হবে আগামী ৩ তারিখে",
+            //         //     date: "25 Sept 2023");
+
+            //         return Shimmer.fromColors(
+            //           baseColor: Colors.grey[200]!,
+            //           highlightColor: Colors.grey[100]!,
+            //           child: NoticeTileShimmer(),
+            //         );
+            //       }),
+            // )
           ],
         ),
       ),

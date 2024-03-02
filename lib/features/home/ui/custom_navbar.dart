@@ -46,8 +46,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         },
         children: [
           Home(),
-          CategoryScreen(),
-          BookmarkScreen(),
+          CategoryScreen(isBack: false),
+          // BookmarkScreen(),
           MoreScreen(),
         ],
       ),
@@ -88,10 +88,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               icon: Icon(Icons.grid_view),
               title: Text("Category"),
             ),
-            SalomonBottomBarItem(
-              icon: Icon(Icons.bookmark_outline),
-              title: Text("Bookmark"),
-            ),
+            // SalomonBottomBarItem(
+            //   icon: Icon(Icons.bookmark_outline),
+            //   title: Text("Bookmark"),
+            // ),
             SalomonBottomBarItem(
               icon: Icon(Icons.menu_rounded),
               title: Text("More"),

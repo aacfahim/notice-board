@@ -12,6 +12,7 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
   NoticeBloc() : super(NoticeInitial()) {
     on<HomeInitialNoticeFetchEvent>(homeInitialNoticeFetchEvent);
     on<HomeNoticeErrorEvent>(homeNoticeErrorEvent);
+    on<CategorizedNoticeFetchEvent>(categorizedNoticeFetchEvent);
   }
 
   FutureOr<void> homeInitialNoticeFetchEvent(
@@ -28,5 +29,18 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
       HomeNoticeErrorEvent event, Emitter<NoticeState> emit) {
     emit(HomeNoticeErrorState());
     print("Notice Error state");
+  }
+
+  Future<void> categorizedNoticeFetchEvent(
+      CategorizedNoticeFetchEvent event, Emitter<NoticeState> emit) async {
+    emit(CategorizedNoticeLoadingState());
+    try {
+      List<NoticeDataModel> notices =
+          await NoticeServices.fetchCategorizedNoticeTile(event.category);
+      print("Categorized Notice Fetched");
+      emit(CategorizedFetchSuccessfulState(notices: notices));
+    } catch (e) {
+      print("Exception occured " + e.toString());
+    }
   }
 }
