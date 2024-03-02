@@ -4,6 +4,7 @@ import 'package:notice_board/features/common/ui/common_appbar.dart';
 import 'package:notice_board/features/home/ui/widgets/notice_tile.dart';
 import 'package:notice_board/features/home/ui/widgets/notice_tile_shimmer.dart';
 import 'package:notice_board/features/notice_detail/bloc/notice_bloc.dart';
+import 'package:notice_board/features/notice_detail/ui/notice_detail_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
 class AllNoticeList extends StatefulWidget {
@@ -74,18 +75,27 @@ class _AllNoticeListState extends State<AllNoticeList> {
                               SizedBox(height: 12),
                           itemCount: noticeState.notices.length,
                           itemBuilder: (context, index) {
-                            return NoticeTile(
-                              title: noticeState
-                                  .notices[index].attributes!.title
-                                  .toString(),
-                              date: noticeState
-                                  .notices[index].attributes!.dateInNotice
-                                  .toString(),
-                              bookmarked: false,
-                              // noticeType: noticeState
-                              //     .notices[index].attributes!.ta
-                              //     .toString(),
-                              noticeType: "N/A",
+                            final notice = noticeState.notices[index];
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        NoticeDetailScreen(data: notice),
+                                  ),
+                                );
+                              },
+                              child: NoticeTile(
+                                title: noticeState
+                                    .notices[index].attributes!.title
+                                    .toString(),
+                                date: noticeState
+                                    .notices[index].attributes!.dateInNotice
+                                    .toString(),
+                                bookmarked: false,
+                                noticeType: notice.category!.name.toString(),
+                              ),
                             );
                           });
 

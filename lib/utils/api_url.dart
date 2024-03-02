@@ -3,4 +3,4 @@
 String BASE_URL = "https://noticeapi.techoverltd.com/api/";
 String AUTH_LOGIN = "auth/local";
 String CATEGORIES = "categories";
-String NOTICES = "detailed-notices";
+String NOTICES = "detailed-notices?populate=%2A";

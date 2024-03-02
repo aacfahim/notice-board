@@ -238,6 +238,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                               removeTop: true,
                               child: ListView.separated(
                                   itemBuilder: (context, index) {
+                                    final notice =
+                                        noticeTileState.notices[index];
                                     return InkWell(
                                       onTap: () {
                                         Navigator.push(
@@ -253,10 +255,10 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                         title: noticeTileState
                                             .notices[index].attributes!.title
                                             .toString(),
-                                        // noticeType: noticeTileState
-                                        //     .notices[index].attributes!.tag
-                                        //     .toString(),
-                                        noticeType: "N/A",
+                                        noticeType:
+                                            notice.category!.name.toString(),
+
+                                        // noticeType: "N/A",
                                         date: noticeTileState.notices[index]
                                             .attributes!.dateInNotice
                                             .toString(),

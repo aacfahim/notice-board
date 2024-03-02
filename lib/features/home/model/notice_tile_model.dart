@@ -29,13 +29,18 @@ class NoticeModel {
 class NoticeDataModel {
   int? id;
   Attributes? attributes;
+  Category? category;
 
-  NoticeDataModel({this.id, this.attributes});
+  NoticeDataModel({this.id, this.attributes, this.category});
 
   NoticeDataModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     attributes = json['attributes'] != null
         ? new Attributes.fromJson(json['attributes'])
+        : null;
+    category = json['attributes']['category'] != null
+        ? new Category.fromJson(
+            json['attributes']['category']['data']['attributes'])
         : null;
   }
 
@@ -138,47 +143,34 @@ class Attributes {
   }
 }
 
-class Meta {
-  Pagination? pagination;
+class Category {
+  String? name;
 
-  Meta({this.pagination});
+  Category({this.name});
 
-  Meta.fromJson(Map<String, dynamic> json) {
-    pagination = json['pagination'] != null
-        ? new Pagination.fromJson(json['pagination'])
-        : null;
+  Category.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.pagination != null) {
-      data['pagination'] = this.pagination!.toJson();
-    }
+    data['name'] = this.name;
     return data;
   }
 }
 
-class Pagination {
-  int? page;
-  int? pageSize;
-  int? pageCount;
-  int? total;
+class Meta {
+  int? totalPages;
 
-  Pagination({this.page, this.pageSize, this.pageCount, this.total});
+  Meta({this.totalPages});
 
-  Pagination.fromJson(Map<String, dynamic> json) {
-    page = json['page'];
-    pageSize = json['pageSize'];
-    pageCount = json['pageCount'];
-    total = json['total'];
+  Meta.fromJson(Map<String, dynamic> json) {
+    totalPages = json['total_pages'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['page'] = this.page;
-    data['pageSize'] = this.pageSize;
-    data['pageCount'] = this.pageCount;
-    data['total'] = this.total;
+    data['total_pages'] = this.totalPages;
     return data;
   }
 }
