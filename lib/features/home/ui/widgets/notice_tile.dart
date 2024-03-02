@@ -39,12 +39,12 @@ class NoticeTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
-                width: width * 0.7,
+                width: width * 0.80,
                 child: Text(title, overflow: TextOverflow.ellipsis),
               ),
-              bookmarked
-                  ? Image.asset("assets/bookmarked.png")
-                  : Image.asset("assets/unbookmarked.png")
+              // bookmarked
+              //     ? Image.asset("assets/bookmarked.png")
+              //     : Image.asset("assets/unbookmarked.png")
             ],
           ),
           Row(
