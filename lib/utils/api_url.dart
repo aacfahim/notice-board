@@ -7,6 +7,9 @@ String NOTICES = "detailed-notices?populate=%2A";
 String GET_CATEGORIZED_NOTICES =
     "detailed-notices?populate=category&filters%5Bcategory%5D=";
 
+String PREFERRED_DETAILED_NOTICE =
+    "https://noticeapi.techoverltd.com/v1/api/preferred-detailed-notice";
+
 
 // All Notice : 1
 // Exam Notice : 2

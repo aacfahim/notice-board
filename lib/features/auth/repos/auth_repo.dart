@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,5 +40,20 @@ class AuthRepo {
   static Future<void> _saveTokenToSharedPreferences(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
+  }
+
+  Future<String?> getDeviceId() async {
+    var deviceInfo = DeviceInfoPlugin();
+    if (Platform.isIOS) {
+      var iosDeviceInfo = await deviceInfo.iosInfo;
+      print("Device id: ${iosDeviceInfo.identifierForVendor}");
+      return iosDeviceInfo.identifierForVendor.toString();
+
+      // return iosDeviceInfo.identifierForVendor;
+    } else if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      print("Device id: ${androidInfo.id}");
+      return androidInfo.id.toString();
+    }
   }
 }
