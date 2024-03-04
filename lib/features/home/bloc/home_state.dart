@@ -11,6 +11,8 @@ class HomeCategorySeeAllActionState extends HomeState {}
 
 class HomeNoticeSeeAllActionState extends HomeState {}
 
+class HomePreferredNoticeSeeAllActionState extends HomeState {}
+
 class HomeErrorState extends HomeState {
   final String error;
 
