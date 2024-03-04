@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:notice_board/features/auth/bloc/auth_bloc.dart';
 import 'package:notice_board/features/auth/repos/auth_repo.dart';
+import 'package:notice_board/features/home/repos/preferred_degree_dropdown.dart';
 import 'package:notice_board/features/home/ui/custom_navbar.dart';
 import 'package:notice_board/features/home/ui/home.dart';
 import 'package:notice_board/features/notice_detail/ui/notice_detail_screen.dart';
@@ -12,7 +13,9 @@ void main() {
   AuthBloc authBloc = AuthBloc();
   authBloc.add(AuthInitialEvent());
 
-  AuthRepo().getDeviceId();
+  // PreferredDegree.fetchDegreeDropdown();
+
+  // AuthRepo().getDeviceId();
   runApp(const MyApp());
 }
 
