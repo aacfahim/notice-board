@@ -33,67 +33,72 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        DropdownButton<String>(
-          hint: Text('Select Degree'),
-          value: _selectedDegree,
-          onChanged: (String? value) {
-            setState(() {
-              _selectedDegree = value;
-              _selectedSubjectOrFaculty = null;
-              _selectedYear = null;
-              _selectedSemester = null;
-            });
-          },
-          items: _degreeDropdownData
-              .where((degree) => degree.degreeName != null)
-              .map((degree) => degree.degreeName!)
-              .toSet()
-              .map((degreeName) {
-            return DropdownMenuItem<String>(
-              value: degreeName,
-              child: Text(degreeName),
-            );
-          }).toList(),
-        ),
-        if (_selectedDegree != null)
+    return Container(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           DropdownButton<String>(
-            hint: Text('Select ${_getSubjectOrFacultyLabel()}'),
-            value: _selectedSubjectOrFaculty,
+            hint: Text('Select Degree'),
+            value: _selectedDegree,
             onChanged: (String? value) {
               setState(() {
-                _selectedSubjectOrFaculty = value;
+                _selectedDegree = value;
+                _selectedSubjectOrFaculty = null;
                 _selectedYear = null;
                 _selectedSemester = null;
               });
             },
-            items: _getSubjectOrFacultyItems(),
+            items: _degreeDropdownData
+                .where((degree) => degree.degreeName != null)
+                .map((degree) => degree.degreeName!)
+                .toSet()
+                .map((degreeName) {
+              return DropdownMenuItem<String>(
+                value: degreeName,
+                child: Text(degreeName),
+              );
+            }).toList(),
           ),
-        if (_selectedDegree != null)
-          DropdownButton<int>(
-            hint: Text('Select Year'),
-            value: _selectedYear,
-            onChanged: (int? value) {
-              setState(() {
-                _selectedYear = value;
-                _selectedSemester = null;
-              });
-            },
-            items: _getYearItems(),
-          ),
-        if (_selectedYear != null)
-          DropdownButton<int>(
-            hint: Text('Select Semester'),
-            value: _selectedSemester,
-            onChanged: (int? value) {
-              setState(() {
-                _selectedSemester = value;
-              });
-            },
-            items: _getSemesterItems(),
-          ),
-      ],
+          if (_selectedDegree != null)
+            DropdownButton<String>(
+              isExpanded: true,
+              hint: Text('Select ${_getSubjectOrFacultyLabel()}'),
+              value: _selectedSubjectOrFaculty,
+              onChanged: (String? value) {
+                setState(() {
+                  _selectedSubjectOrFaculty = value;
+                  _selectedYear = null;
+                  _selectedSemester = null;
+                });
+              },
+              items: _getSubjectOrFacultyItems(),
+            ),
+          if (_selectedDegree != null)
+            DropdownButton<int>(
+              hint: Text('Select Year'),
+              value: _selectedYear,
+              onChanged: (int? value) {
+                setState(() {
+                  _selectedYear = value;
+                  _selectedSemester = null;
+                });
+              },
+              items: _getYearItems(),
+            ),
+          if (_selectedYear != null)
+            DropdownButton<int>(
+              hint: Text('Select Semester'),
+              value: _selectedSemester,
+              onChanged: (int? value) {
+                setState(() {
+                  _selectedSemester = value;
+                });
+              },
+              items: _getSemesterItems(),
+            ),
+        ],
+      ),
     );
   }
 
