@@ -41,7 +41,7 @@ class PreferenceWidget extends StatelessWidget {
                             Navigator.pop(context);
                           },
                           child: Icon(Icons.close, color: Color(0xffE80A0A)))),
-                  content: ShowDialogueCriteria(),
+                  content: ShowDialoguePreferrence(),
                   actions: [
                     Center(
                       child: ElevatedButton(
