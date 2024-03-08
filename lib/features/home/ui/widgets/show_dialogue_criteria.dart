@@ -86,7 +86,7 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
               },
               items: _getYearItems(),
             ),
-          if (_selectedYear != null)
+          if (_selectedYear != null && _degreeHasSemesters(_selectedDegree))
             DropdownButton<int>(
               hint: Text('Select Semester'),
               value: _selectedSemester,
@@ -100,6 +100,13 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
         ],
       ),
     );
+  }
+
+  bool _degreeHasSemesters(String? degreeName) {
+    if (degreeName == null) return false;
+    final selectedDegreeData = _degreeDropdownData
+        .firstWhereOrNull((degree) => degree.degreeName == degreeName);
+    return selectedDegreeData?.durationSemesters != null;
   }
 
   String _getSubjectOrFacultyLabel() {
