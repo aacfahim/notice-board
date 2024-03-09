@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:notice_board/features/home/model/preference_notifier.dart';
+import 'package:notice_board/features/home/repos/preferred_degree_dropdown.dart';
 import 'package:notice_board/features/home/ui/widgets/show_dialogue_criteria.dart';
 import 'package:notice_board/utils/const.dart';
+import 'package:provider/provider.dart';
 
 class PreferenceWidget extends StatelessWidget {
   const PreferenceWidget({
@@ -10,6 +13,7 @@ class PreferenceWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final preferenceModel = Provider.of<PreferenceModel>(context);
     return Column(
       children: [
         ListTile(
@@ -48,7 +52,23 @@ class PreferenceWidget extends StatelessWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: PRIMARY_COLOR,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          final preferenceModel = Provider.of<PreferenceModel>(
+                              context,
+                              listen: false);
+                          print(
+                              'Selected Degree: ${preferenceModel.selectedDegree}');
+                          print(
+                              'Selected Subject: ${preferenceModel.selectedSubject}');
+                          print(
+                              'Selected Faculty: ${preferenceModel.selectedFaculty}');
+                          print(
+                              'Selected Year: ${preferenceModel.selectedYear}');
+                          print(
+                              'Selected Semester: ${preferenceModel.selectedSemester}');
+
+                          PreferredDegree.setPreference(preferenceModel);
+                        },
                         child: Text('সেট করুন',
                             style: TextStyle(color: Colors.white)),
                       ),
