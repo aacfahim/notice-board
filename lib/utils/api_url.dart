@@ -13,6 +13,8 @@ String PREFERRED_DETAILED_NOTICE =
 String DEGREE_LENGTH =
     "degree-lengths?pagination%5BpageSize%5D=1000&populate=%2A";
 
+String USER_PREFERENCE = "user-preferences";
+
 
 // All Notice : 1
 // Exam Notice : 2
