@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:notice_board/features/home/model/degree_model.dart';
+import 'package:notice_board/features/home/model/preference_notifier.dart';
 import 'package:notice_board/features/home/repos/preferred_degree_dropdown.dart';
+import 'package:provider/provider.dart';
 
 class ShowDialoguePreferrence extends StatefulWidget {
   const ShowDialoguePreferrence({Key? key}) : super(key: key);
@@ -14,7 +16,8 @@ class ShowDialoguePreferrence extends StatefulWidget {
 class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
   List<DegreeModel> _degreeDropdownData = [];
   String? _selectedDegree;
-  String? _selectedSubjectOrFaculty;
+  String? _selectedSubject;
+  String? _selectedFaculty;
   int? _selectedYear;
   int? _selectedSemester;
 
@@ -44,10 +47,13 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
             onChanged: (String? value) {
               setState(() {
                 _selectedDegree = value;
-                _selectedSubjectOrFaculty = null;
+                _selectedSubject = null;
+                _selectedFaculty = null;
                 _selectedYear = null;
                 _selectedSemester = null;
               });
+              Provider.of<PreferenceModel>(context, listen: false)
+                  .updateSelectedDegree(value);
             },
             items: _degreeDropdownData
                 .where((degree) => degree.degreeName != null)
@@ -61,19 +67,42 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
             }).toList(),
           ),
           if (_selectedDegree != null)
-            DropdownButton<String>(
-              isExpanded: true,
-              hint: Text('Select ${_getSubjectOrFacultyLabel()}'),
-              value: _selectedSubjectOrFaculty,
-              onChanged: (String? value) {
-                setState(() {
-                  _selectedSubjectOrFaculty = value;
-                  _selectedYear = null;
-                  _selectedSemester = null;
-                });
-              },
-              items: _getSubjectOrFacultyItems(),
-            ),
+            if (_degreeHasSubject(_selectedDegree))
+              DropdownButton<String>(
+                isExpanded: true,
+                hint: Text('Select Subject'),
+                value: _selectedSubject,
+                onChanged: (String? value) {
+                  setState(() {
+                    _selectedSubject = value;
+                    _selectedFaculty = null;
+                    _selectedYear = null;
+                    _selectedSemester = null;
+                  });
+                  Provider.of<PreferenceModel>(context, listen: false)
+                      .updateSelectedSubject(value);
+                },
+                items: _getSubjectItems(),
+              ),
+          if (_selectedDegree != null)
+            if (_degreeHasFaculty(_selectedDegree))
+              DropdownButton<String>(
+                isExpanded: true,
+                hint: Text('Select Faculty'),
+                value: _selectedFaculty,
+                onChanged: (String? value) {
+                  setState(() {
+                    _selectedFaculty = value;
+                    _selectedSubject = null;
+                    _selectedYear = null;
+                    _selectedSemester = null;
+                  });
+
+                  Provider.of<PreferenceModel>(context, listen: false)
+                      .updateSelectedFaculty(value);
+                },
+                items: _getFacultyItems(),
+              ),
           if (_selectedDegree != null)
             DropdownButton<int>(
               hint: Text('Select Year'),
@@ -83,6 +112,8 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
                   _selectedYear = value;
                   _selectedSemester = null;
                 });
+                Provider.of<PreferenceModel>(context, listen: false)
+                    .updateSelectedYear(value);
               },
               items: _getYearItems(),
             ),
@@ -94,6 +125,8 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
                 setState(() {
                   _selectedSemester = value;
                 });
+                Provider.of<PreferenceModel>(context, listen: false)
+                    .updateSelectedSemester(value);
               },
               items: _getSemesterItems(),
             ),
@@ -102,56 +135,44 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
     );
   }
 
-  bool _degreeHasSemesters(String? degreeName) {
-    if (degreeName == null) return false;
-    final selectedDegreeData = _degreeDropdownData
-        .firstWhereOrNull((degree) => degree.degreeName == degreeName);
-    return selectedDegreeData?.durationSemesters != null;
-  }
-
-  String _getSubjectOrFacultyLabel() {
-    if (_selectedDegree == null) return '';
-    final selectedDegreeData = _degreeDropdownData
-        .firstWhereOrNull((degree) => degree.degreeName == _selectedDegree);
-    if (selectedDegreeData != null) {
-      if (selectedDegreeData.subjectName != null) return 'Subject';
-      if (selectedDegreeData.facultyName != null) return 'Faculty';
-    }
-    return '';
-  }
-
-  List<DropdownMenuItem<String>> _getSubjectOrFacultyItems() {
+  List<DropdownMenuItem<String>> _getSubjectItems() {
     if (_selectedDegree == null) return [];
     final selectedDegreeData = _degreeDropdownData
         .firstWhereOrNull((degree) => degree.degreeName == _selectedDegree);
-    if (selectedDegreeData != null) {
-      if (selectedDegreeData.subjectName != null) {
-        return _degreeDropdownData
-            .where((degree) =>
-                degree.degreeName == _selectedDegree &&
-                degree.subjectName != null)
-            .map((degree) => degree.subjectName!)
-            .toSet()
-            .map((subjectName) {
-          return DropdownMenuItem<String>(
-            value: subjectName,
-            child: Text(subjectName),
-          );
-        }).toList();
-      } else if (selectedDegreeData.facultyName != null) {
-        return _degreeDropdownData
-            .where((degree) =>
-                degree.degreeName == _selectedDegree &&
-                degree.facultyName != null)
-            .map((degree) => degree.facultyName!)
-            .toSet()
-            .map((facultyName) {
-          return DropdownMenuItem<String>(
-            value: facultyName,
-            child: Text(facultyName),
-          );
-        }).toList();
-      }
+    if (selectedDegreeData != null && selectedDegreeData.subjectName != null) {
+      return _degreeDropdownData
+          .where((degree) =>
+              degree.degreeName == _selectedDegree &&
+              degree.subjectName != null)
+          .map((degree) => degree.subjectName!)
+          .toSet()
+          .map((subjectName) {
+        return DropdownMenuItem<String>(
+          value: subjectName,
+          child: Text(subjectName),
+        );
+      }).toList();
+    }
+    return [];
+  }
+
+  List<DropdownMenuItem<String>> _getFacultyItems() {
+    if (_selectedDegree == null) return [];
+    final selectedDegreeData = _degreeDropdownData
+        .firstWhereOrNull((degree) => degree.degreeName == _selectedDegree);
+    if (selectedDegreeData != null && selectedDegreeData.facultyName != null) {
+      return _degreeDropdownData
+          .where((degree) =>
+              degree.degreeName == _selectedDegree &&
+              degree.facultyName != null)
+          .map((degree) => degree.facultyName!)
+          .toSet()
+          .map((facultyName) {
+        return DropdownMenuItem<String>(
+          value: facultyName,
+          child: Text(facultyName),
+        );
+      }).toList();
     }
     return [];
   }
@@ -193,5 +214,23 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
       ];
     }
     return [];
+  }
+
+  bool _degreeHasSubject(String? degreeName) {
+    final selectedDegreeData = _degreeDropdownData
+        .firstWhereOrNull((degree) => degree.degreeName == degreeName);
+    return selectedDegreeData?.subjectName != null;
+  }
+
+  bool _degreeHasFaculty(String? degreeName) {
+    final selectedDegreeData = _degreeDropdownData
+        .firstWhereOrNull((degree) => degree.degreeName == degreeName);
+    return selectedDegreeData?.facultyName != null;
+  }
+
+  bool _degreeHasSemesters(String? degreeName) {
+    final selectedDegreeData = _degreeDropdownData
+        .firstWhereOrNull((degree) => degree.degreeName == degreeName);
+    return selectedDegreeData?.durationSemesters != null;
   }
 }
