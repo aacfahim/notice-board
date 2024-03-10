@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../utils/api_url.dart';
 
 class AuthRepo {
-  static Future<void> localLogin() async {
+  static Future<String?> localLogin() async {
     String loginUrl = BASE_URL + AUTH_LOGIN;
     var client = http.Client();
 
@@ -20,18 +20,15 @@ class AuthRepo {
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = jsonDecode(response.body);
-        String token = await data["jwt"];
+        String token = data["jwt"];
         await _saveTokenToSharedPreferences(token);
-
-        print("login data: " + jsonEncode(data));
+        return token; // Return the token
       } else {
-        print("login data: " +
-            response.statusCode.toString() +
-            " " +
-            response.body);
+        throw Exception(
+            "Failed to login: ${response.statusCode} ${response.body}");
       }
     } catch (e) {
-      print(e.toString());
+      throw Exception("Failed to login: $e");
     } finally {
       client.close();
     }
