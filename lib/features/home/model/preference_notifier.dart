@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 
 class PreferenceModel extends ChangeNotifier {
-  String? selectedDegree;
-  String? selectedSubject;
-  String? selectedFaculty;
+  int? degreeId;
+  int? facultyId;
+  int? subjectId;
   int? selectedYear;
   int? selectedSemester;
 
-  void updateSelectedDegree(String? degree) {
-    selectedDegree = degree;
+  void updateSelectedDegreeId(int? id) {
+    degreeId = id;
     notifyListeners();
   }
 
-  void updateSelectedSubject(String? subject) {
-    selectedSubject = subject;
+  void updateSelectedSubjectId(int? id) {
+    subjectId = id;
     notifyListeners();
   }
 
-  void updateSelectedFaculty(String? Faculty) {
-    selectedFaculty = Faculty;
+  void updateSelectedFacultyId(int? id) {
+    facultyId = id;
     notifyListeners();
   }
 

@@ -56,12 +56,11 @@ class PreferenceWidget extends StatelessWidget {
                           final preferenceModel = Provider.of<PreferenceModel>(
                               context,
                               listen: false);
+                          print('Selected Degree: ${preferenceModel.degreeId}');
                           print(
-                              'Selected Degree: ${preferenceModel.selectedDegree}');
+                              'Selected Subject: ${preferenceModel.subjectId}');
                           print(
-                              'Selected Subject: ${preferenceModel.selectedSubject}');
-                          print(
-                              'Selected Faculty: ${preferenceModel.selectedFaculty}');
+                              'Selected Faculty: ${preferenceModel.facultyId}');
                           print(
                               'Selected Year: ${preferenceModel.selectedYear}');
                           print(

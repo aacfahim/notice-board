@@ -52,8 +52,11 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
                 _selectedYear = null;
                 _selectedSemester = null;
               });
+              int? degreeId = _degreeDropdownData
+                  .firstWhereOrNull((degree) => degree.degreeName == value)
+                  ?.degreeId;
               Provider.of<PreferenceModel>(context, listen: false)
-                  .updateSelectedDegree(value);
+                  .updateSelectedDegreeId(degreeId);
             },
             items: _degreeDropdownData
                 .where((degree) => degree.degreeName != null)
@@ -79,8 +82,11 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
                     _selectedYear = null;
                     _selectedSemester = null;
                   });
+                  int? subjectId = _degreeDropdownData
+                      .firstWhereOrNull((degree) => degree.subjectName == value)
+                      ?.subjectId;
                   Provider.of<PreferenceModel>(context, listen: false)
-                      .updateSelectedSubject(value);
+                      .updateSelectedSubjectId(subjectId);
                 },
                 items: _getSubjectItems(),
               ),
@@ -98,8 +104,11 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
                     _selectedSemester = null;
                   });
 
+                  int? facultyId = _degreeDropdownData
+                      .firstWhereOrNull((degree) => degree.facultyName == value)
+                      ?.facultyId;
                   Provider.of<PreferenceModel>(context, listen: false)
-                      .updateSelectedFaculty(value);
+                      .updateSelectedFacultyId(facultyId);
                 },
                 items: _getFacultyItems(),
               ),
