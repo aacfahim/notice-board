@@ -75,19 +75,7 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
                 isExpanded: true,
                 hint: Text('Select Subject'),
                 value: _selectedSubject,
-                onChanged: (String? value) {
-                  setState(() {
-                    _selectedSubject = value;
-                    _selectedFaculty = null;
-                    _selectedYear = null;
-                    _selectedSemester = null;
-                  });
-                  int? subjectId = _degreeDropdownData
-                      .firstWhereOrNull((degree) => degree.subjectName == value)
-                      ?.subjectId;
-                  Provider.of<PreferenceModel>(context, listen: false)
-                      .updateSelectedSubjectId(subjectId);
-                },
+                onChanged: _handleSubjectChange,
                 items: _getSubjectItems(),
               ),
           if (_selectedDegree != null)
@@ -96,20 +84,7 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
                 isExpanded: true,
                 hint: Text('Select Faculty'),
                 value: _selectedFaculty,
-                onChanged: (String? value) {
-                  setState(() {
-                    _selectedFaculty = value;
-                    _selectedSubject = null;
-                    _selectedYear = null;
-                    _selectedSemester = null;
-                  });
-
-                  int? facultyId = _degreeDropdownData
-                      .firstWhereOrNull((degree) => degree.facultyName == value)
-                      ?.facultyId;
-                  Provider.of<PreferenceModel>(context, listen: false)
-                      .updateSelectedFacultyId(facultyId);
-                },
+                onChanged: _handleFacultyChange,
                 items: _getFacultyItems(),
               ),
           if (_selectedDegree != null)
@@ -241,5 +216,37 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
     final selectedDegreeData = _degreeDropdownData
         .firstWhereOrNull((degree) => degree.degreeName == degreeName);
     return selectedDegreeData?.durationSemesters != null;
+  }
+
+  void _handleSubjectChange(String? value) {
+    setState(() {
+      _selectedSubject = value;
+      _selectedFaculty = null;
+      _selectedYear = null;
+      _selectedSemester = null;
+    });
+    if (value != null) {
+      int? subjectId = _degreeDropdownData
+          .firstWhereOrNull((degree) => degree.subjectName == value)
+          ?.subjectId;
+      Provider.of<PreferenceModel>(context, listen: false)
+          .updateSelectedSubjectId(subjectId);
+    }
+  }
+
+  void _handleFacultyChange(String? value) {
+    setState(() {
+      _selectedFaculty = value;
+      _selectedSubject = null;
+      _selectedYear = null;
+      _selectedSemester = null;
+    });
+    if (value != null) {
+      int? facultyId = _degreeDropdownData
+          .firstWhereOrNull((degree) => degree.facultyName == value)
+          ?.facultyId;
+      Provider.of<PreferenceModel>(context, listen: false)
+          .updateSelectedFacultyId(facultyId);
+    }
   }
 }

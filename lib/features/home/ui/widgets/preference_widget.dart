@@ -67,6 +67,8 @@ class PreferenceWidget extends StatelessWidget {
                               'Selected Semester: ${preferenceModel.selectedSemester}');
 
                           PreferredDegree.setPreference(preferenceModel);
+
+                          preferenceModel.clearState();
                         },
                         child: Text('সেট করুন',
                             style: TextStyle(color: Colors.white)),

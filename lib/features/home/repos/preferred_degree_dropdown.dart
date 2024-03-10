@@ -55,48 +55,51 @@ class PreferredDegree {
 
     var client = http.Client();
 
-    // try {
-    //   SharedPreferences prefs = await SharedPreferences.getInstance();
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    //   Map<String, dynamic> body = {
-    //     "data": {
-    //       "year": preferenceModel.selectedYear ?? 0,
-    //       if (preferenceModel.selectedSemester != null)
-    //         "semester": preferenceModel.selectedSemester,
-    //       "device_id": deviceId.toString(),
-    //       if (preferenceModel.degreeId != null)
-    //         "degree": preferenceModel.degreeId,
-    //       if (preferenceModel.facultyId != null)
-    //         "faculty": preferenceModel.facultyId,
-    //       if (preferenceModel.subjectId != null)
-    //         "subject": preferenceModel.subjectId
-    //     }
-    //   };
+      print("selectedSemester " + preferenceModel.selectedSemester.toString());
+      print("selectedYear " + preferenceModel.selectedYear.toString());
+      print("facultyId " + preferenceModel.facultyId.toString());
+      print("subjectId " + preferenceModel.subjectId.toString());
 
-    //   var response = await client.post(Uri.parse(prefUrl),
-    //       headers: {
-    //         HttpHeaders.contentTypeHeader: "application/json",
-    //         HttpHeaders.authorizationHeader:
-    //             "Bearer ${prefs.getString("token")}"
-    //       },
-    //       body: jsonEncode(body));
+      Map<String, dynamic> body = {
+        "data": {
+          "year": preferenceModel.selectedYear ?? 0,
+          if (preferenceModel.selectedSemester != null)
+            "semester": preferenceModel.selectedSemester,
+          "device_id": deviceId.toString(),
+          if (preferenceModel.degreeId != null)
+            "degree": preferenceModel.degreeId,
+          if (preferenceModel.facultyId != null)
+            "faculty": preferenceModel.facultyId,
+          if (preferenceModel.subjectId != null)
+            "subject": preferenceModel.subjectId
+        }
+      };
 
-    //   print("res " + response.body);
+      var response = await client.post(Uri.parse(prefUrl),
+          headers: {
+            HttpHeaders.contentTypeHeader: "application/json",
+            HttpHeaders.authorizationHeader:
+                "Bearer ${prefs.getString("token")}"
+          },
+          body: jsonEncode(body));
 
-    //   if (response.statusCode == 200 || response.statusCode == 201) {
-    //     var data = jsonDecode(response.body);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        var data = jsonDecode(response.body);
 
-    //     print("pref data: " + jsonEncode(data));
-    //   } else {
-    //     print("pred data: " +
-    //         response.statusCode.toString() +
-    //         " " +
-    //         response.body);
-    //   }
-    // } catch (e) {
-    //   print("exception during pref fetch: " + e.toString());
-    // } finally {
-    //   client.close();
-    // }
+        print("pref data: " + jsonEncode(data));
+      } else {
+        print("pred data: " +
+            response.statusCode.toString() +
+            " " +
+            response.body);
+      }
+    } catch (e) {
+      print("exception during pref fetch: " + e.toString());
+    } finally {
+      client.close();
+    }
   }
 }

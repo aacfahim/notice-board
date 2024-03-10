@@ -7,6 +7,15 @@ class PreferenceModel extends ChangeNotifier {
   int? selectedYear;
   int? selectedSemester;
 
+  void clearState() {
+    degreeId = null;
+    facultyId = null;
+    subjectId = null;
+    selectedYear = null;
+    selectedSemester = null;
+    notifyListeners();
+  }
+
   void updateSelectedDegreeId(int? id) {
     degreeId = id;
     notifyListeners();

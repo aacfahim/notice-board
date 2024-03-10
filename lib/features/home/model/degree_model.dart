@@ -38,7 +38,9 @@ class DegreeModel {
       facultyId: json['attributes']['faculty'] != null &&
               json['attributes']['faculty']['data'] != null
           ? json['attributes']['faculty']['data']['id']
-          : null,
+          : json['attributes']['faculty'] != null
+              ? json['attributes']['faculty']['data']
+              : null,
       subjectName: json['attributes']['subject'] != null &&
               json['attributes']['subject']['data'] != null
           ? json['attributes']['subject']['data']['attributes']['subject_name']
