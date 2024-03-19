@@ -13,6 +13,7 @@ class CategoryTile extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     return Container(
       width: width * .37,
+      // height: 10,
       decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -31,16 +32,17 @@ class CategoryTile extends StatelessWidget {
           SvgPicture.asset(
             "assets/category_icon.svg",
             fit: BoxFit.cover,
+            width: 65,
           ),
           // SizedBox(height: 6),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Text(
                 title,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              Icon(Icons.arrow_forward, color: PRIMARY_COLOR),
+              // Icon(Icons.arrow_forward, color: PRIMARY_COLOR),
             ],
           ),
           // SizedBox(height: 3),
