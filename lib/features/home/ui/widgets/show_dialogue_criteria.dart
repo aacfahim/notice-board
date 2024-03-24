@@ -168,34 +168,79 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
     if (selectedDegreeData != null) {
       return List.generate(
         selectedDegreeData.durationYears,
-        (index) => index + 1,
-      ).map((year) {
-        return DropdownMenuItem<int>(
-          value: year,
-          child: Text('$year'),
-        );
-      }).toList();
+        (index) {
+          int yearValue = index + 1;
+          String yearLabel = _getYearLabel(yearValue);
+          return DropdownMenuItem<int>(
+            value: yearValue,
+            child: Text(yearLabel),
+          );
+        },
+      ).toList();
     }
     return [];
   }
 
+  String _getYearLabel(int yearValue) {
+    switch (yearValue) {
+      case 1:
+        return 'First Year';
+      case 2:
+        return 'Second Year';
+      case 3:
+        return 'Third Year';
+      case 4:
+        return 'Fourth Year';
+      case 5:
+        return 'Fifth Year';
+      default:
+        return 'Year $yearValue'; // Fallback if more than 5 years
+    }
+  }
+
+  String getSuffix(int number) {
+    if (number >= 11 && number <= 13) {
+      return 'th';
+    }
+    switch (number % 10) {
+      case 1:
+        return 'st';
+      case 2:
+        return 'nd';
+      case 3:
+        return 'rd';
+      default:
+        return 'th';
+    }
+  }
+
   List<DropdownMenuItem<int>> _getSemesterItems() {
     if (_selectedYear == null) return [];
+
     final selectedDegreeData = _degreeDropdownData
         .firstWhereOrNull((degree) => degree.degreeName == _selectedDegree);
+
     if (selectedDegreeData != null &&
         selectedDegreeData.durationSemesters != null) {
+      List<DropdownMenuItem<int>> items = [];
+      int totalSemesters = selectedDegreeData.durationSemesters!;
       int startingSemester = (_selectedYear! - 1) * 2 + 1;
-      return [
-        DropdownMenuItem<int>(
-          value: startingSemester,
-          child: Text('$startingSemester'),
-        ),
-        DropdownMenuItem<int>(
-          value: startingSemester + 1,
-          child: Text('${startingSemester + 1}'),
-        ),
-      ];
+      int endingSemester = startingSemester + 1;
+
+      for (int i = startingSemester;
+          i <= totalSemesters && i <= endingSemester;
+          i++) {
+        String suffix = getSuffix(i);
+        String semesterText = '$i$suffix Semester';
+
+        items.add(
+          DropdownMenuItem<int>(
+            value: i,
+            child: Text(semesterText),
+          ),
+        );
+      }
+      return items;
     }
     return [];
   }

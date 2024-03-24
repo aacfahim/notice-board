@@ -14,7 +14,7 @@ class AuthScreen extends StatelessWidget {
         } else if (state is AuthSuccessfullState) {
           return CustomBottomNavigationBar();
         } else {
-          return Container(); // Handle other states or errors
+          return Container();
         }
       },
     );

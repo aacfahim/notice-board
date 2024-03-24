@@ -36,7 +36,7 @@ class PreferenceWidget extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) => AlertDialog(
                   backgroundColor: Colors.white,
-                  title: Text('প্রয়োজনীয় নোটিশ পেতে তথ্য দিয়ে সহায়তা করুন',
+                  title: Text('Provide Information for Personalized Notice',
                       style: TextStyle(fontSize: 15)),
                   icon: Align(
                       alignment: Alignment.topRight,
@@ -69,7 +69,7 @@ class PreferenceWidget extends StatelessWidget {
                           PreferredDegree.setPreference(preferenceModel)
                               .then((value) => preferenceModel.clearState());
                         },
-                        child: Text('সেট করুন',
+                        child: Text('Set Preference',
                             style: TextStyle(color: Colors.white)),
                       ),
                     ),
