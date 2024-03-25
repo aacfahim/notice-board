@@ -7,7 +7,8 @@ import 'package:notice_board/features/common/ui/common_appbar.dart';
 import 'package:notice_board/features/home/model/notice_tile_model.dart';
 import 'package:notice_board/utils/const.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart'; // Import for storage permission
+import 'package:permission_handler/permission_handler.dart';
+import 'package:share_plus/share_plus.dart'; // Import for storage permission
 
 class NoticeDetailScreen extends StatelessWidget {
   const NoticeDetailScreen({super.key, required this.data});
@@ -47,8 +48,11 @@ class NoticeDetailScreen extends StatelessWidget {
         centerTitle: true,
         actions: [
           GestureDetector(
-            onTap: () {
+            onTap: () async {
               print(data.attributes!.nuNoticePdfLink.toString());
+              Share.share("Click the following link to see the notice:\n" +
+                  data.attributes!.nuNoticePdfLink.toString() +
+                  "\n\n- National University Notice Board");
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),

@@ -47,6 +47,7 @@ dependencies:
   permission_handler: ^11.3.0
   flutter_downloader: ^1.11.6
   flutter_cached_pdfview: ^0.4.2
+  share_plus: 7.0.1
 
 dev_dependencies:
   flutter_test:
