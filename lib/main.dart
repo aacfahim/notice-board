@@ -10,6 +10,7 @@ import 'package:notice_board/features/home/repos/preferred_degree_dropdown.dart'
 import 'package:notice_board/features/home/ui/custom_navbar.dart';
 import 'package:notice_board/features/home/ui/home.dart';
 import 'package:notice_board/features/notice_detail/ui/notice_detail_screen.dart';
+import 'package:notice_board/test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

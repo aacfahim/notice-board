@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:http/http.dart' as http;
 import 'package:notice_board/features/common/ui/common_appbar.dart';
 import 'package:notice_board/features/home/model/notice_tile_model.dart';
@@ -15,20 +16,49 @@ class NoticeDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonAppBar(text: data.attributes!.innerTitle.toString()),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          ListTile(
-            title: SelectableText(
-              data.attributes!.innerTitle.toString(),
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: GestureDetector(
+            onTap: () => Navigator.pop(context),
+            child: Card(
+              child: Container(
+                decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color.fromARGB(255, 196, 195, 195),
+                        offset: Offset(1.0, 1.0),
+                        blurRadius: 2.5,
+                        spreadRadius: 0.0,
+                      ),
+                    ],
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(6.0)),
+                child: Image.asset("assets/back_button.png"),
+              ),
             ),
-            subtitle: SelectableText(data.attributes!.title.toString()),
           ),
-          InkWell(
+        ),
+        title: Text(
+          data.attributes!.innerTitle.toString(),
+        ),
+        centerTitle: true,
+        actions: [
+          GestureDetector(
+            onTap: () {
+              print(data.attributes!.nuNoticePdfLink.toString());
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.share,
+              ),
+            ),
+          ),
+          GestureDetector(
             onTap: () async {
-              // Request storage permission with informative message
               final status = await Permission.storage.request();
               if (status.isGranted) {
                 _downloadPDF(
@@ -65,27 +95,20 @@ class NoticeDetailScreen extends StatelessWidget {
                 );
               }
             },
-            child: Container(
-              height: 100,
-              width: 100,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8.0),
-              ),
-              child: Text(data.attributes!.nuNoticePdfLink.toString()),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(Icons.download),
             ),
-          ),
-          ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(backgroundColor: PRIMARY_COLOR),
-            onPressed: () {},
-            icon: Icon(
-              Icons.share,
-              color: Colors.white,
-            ),
-            label: Text(
-              "Share",
-              style: TextStyle(color: Colors.white),
-            ),
+          )
+        ],
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Expanded(
+            child: PDF(
+              swipeHorizontal: true,
+            ).fromUrl(data.attributes!.nuNoticePdfLink.toString()),
           ),
         ],
       ),
