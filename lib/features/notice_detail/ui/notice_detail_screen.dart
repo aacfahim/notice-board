@@ -1,18 +1,89 @@
 import 'dart:io';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:http/http.dart' as http;
-import 'package:notice_board/features/common/ui/common_appbar.dart';
 import 'package:notice_board/features/home/model/notice_tile_model.dart';
-import 'package:notice_board/utils/const.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:share_plus/share_plus.dart'; // Import for storage permission
+import 'package:share_plus/share_plus.dart';
 
-class NoticeDetailScreen extends StatelessWidget {
+class NoticeDetailScreen extends StatefulWidget {
   const NoticeDetailScreen({super.key, required this.data});
   final NoticeDataModel data;
+
+  @override
+  State<NoticeDetailScreen> createState() => _NoticeDetailScreenState();
+}
+
+class _NoticeDetailScreenState extends State<NoticeDetailScreen> {
+  String _progress = '';
+  bool _downloading = false;
+
+  String generateFileName() {
+    final now = DateTime.now();
+    final formattedDate =
+        '${now.day.toString().padLeft(2, '0')}-${now.month.toString().padLeft(2, '0')}-${now.year.toString().substring(2)}';
+    return 'NU-Notice-$formattedDate';
+  }
+
+  Future<String?> getDownloadPath() async {
+    Directory? directory;
+    try {
+      if (Platform.isIOS) {
+        directory = await getApplicationDocumentsDirectory();
+      } else {
+        directory = Directory('/storage/emulated/0/Download');
+        // Put file in global download folder, if for an unknown reason it didn't exist, we fallback
+        // ignore: avoid_slow_async_io
+        if (!await directory.exists())
+          directory = await getExternalStorageDirectory();
+      }
+    } catch (err, stack) {
+      print("Cannot get download folder path");
+    }
+    return directory?.path;
+  }
+
+  Future<void> downloadFile(String url) async {
+    setState(() {
+      _downloading = true;
+      _progress = 'Downloading...';
+    });
+
+    final response = await http.get(Uri.parse(url));
+    final bytes = response.bodyBytes;
+
+    final directory = await getDownloadPath();
+    if (directory == null) {
+      setState(() {
+        _progress = 'Error: Download path not available';
+        _downloading = false;
+      });
+      return;
+    }
+
+    final filePath = '$directory/${generateFileName()}.pdf';
+
+    final file = File(filePath);
+    await file.writeAsBytes(bytes);
+
+    setState(() {
+      _downloading = false;
+      _progress = 'Downloaded to: $filePath';
+    });
+
+    print(response.statusCode);
+
+    var downloadOK = SnackBar(content: Text('Download Completed'));
+    var downloadFailed =
+        SnackBar(content: Text('Something went wrong, try again'));
+
+    if (!_downloading && response.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(downloadOK);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(downloadFailed);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,15 +114,15 @@ class NoticeDetailScreen extends StatelessWidget {
           ),
         ),
         title: Text(
-          data.attributes!.innerTitle.toString(),
+          widget.data.attributes!.innerTitle.toString(),
         ),
         centerTitle: true,
         actions: [
           GestureDetector(
             onTap: () async {
-              print(data.attributes!.nuNoticePdfLink.toString());
+              print(widget.data.attributes!.nuNoticePdfLink.toString());
               Share.share("Click the following link to see the notice:\n" +
-                  data.attributes!.nuNoticePdfLink.toString() +
+                  widget.data.attributes!.nuNoticePdfLink.toString() +
                   "\n\n- National University Notice Board");
             },
             child: Padding(
@@ -63,41 +134,7 @@ class NoticeDetailScreen extends StatelessWidget {
           ),
           GestureDetector(
             onTap: () async {
-              final status = await Permission.storage.request();
-              if (status.isGranted) {
-                _downloadPDF(
-                    data.attributes!.nuNoticePdfLink.toString(), context);
-              } else if (status.isPermanentlyDenied) {
-                // Handle permanently denied scenario (e.g., open app settings)
-                showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: Text('Storage Permission Required'),
-                    content: Text(
-                      'The app needs storage permission to download PDFs. '
-                      'Please open app settings and grant permission.',
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context),
-                        child: Text('Cancel'),
-                      ),
-                      TextButton(
-                        onPressed: () => openAppSettings(), // Open app settings
-                        child: Text('Open Settings'),
-                      ),
-                    ],
-                  ),
-                );
-              } else {
-                // Handle other permission denial cases (e.g., show a snackbar)
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content:
-                        Text('Storage permission denied. Download failed.'),
-                  ),
-                );
-              }
+              downloadFile(widget.data.attributes!.nuNoticePdfLink.toString());
             },
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -112,37 +149,10 @@ class NoticeDetailScreen extends StatelessWidget {
           Expanded(
             child: PDF(
               swipeHorizontal: true,
-            ).fromUrl(data.attributes!.nuNoticePdfLink.toString()),
+            ).fromUrl(widget.data.attributes!.nuNoticePdfLink.toString()),
           ),
         ],
       ),
     );
-  }
-
-  Future<void> _downloadPDF(String pdfUrl, BuildContext context) async {
-    final response = await http.get(Uri.parse(pdfUrl));
-
-    if (response.statusCode == 200) {
-      final directory = await getApplicationDocumentsDirectory();
-      final fileName = Uri.parse(pdfUrl).pathSegments.last; // Extract filename
-      final file = File('${directory.path}/$fileName');
-
-      await file.writeAsBytes(response.bodyBytes);
-
-      print(directory.path); // For debugging
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('PDF downloaded successfully!'),
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-              'Failed to download PDF. Status code: ${response.statusCode}'),
-        ),
-      );
-    }
   }
 }
