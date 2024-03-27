@@ -1,24 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:notice_board/features/auth/bloc/auth_bloc.dart';
-import 'package:notice_board/features/auth/repos/auth_repo.dart';
 import 'package:notice_board/features/auth/ui/auth_screen.dart';
 import 'package:notice_board/features/home/model/preference_notifier.dart';
-import 'package:notice_board/features/home/repos/preferred_degree_dropdown.dart';
-import 'package:notice_board/features/home/ui/custom_navbar.dart';
-import 'package:notice_board/features/home/ui/home.dart';
-import 'package:notice_board/features/notice_detail/ui/notice_detail_screen.dart';
-import 'package:notice_board/test.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  // AuthBloc authBloc = AuthBloc();
-  // authBloc.add(AuthInitialEvent());
-
   runApp(const MyApp());
 }
 
