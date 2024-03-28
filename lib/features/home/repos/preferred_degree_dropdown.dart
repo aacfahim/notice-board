@@ -58,10 +58,10 @@ class PreferredDegree {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      print("selectedSemester " + preferenceModel.selectedSemester.toString());
-      print("selectedYear " + preferenceModel.selectedYear.toString());
-      print("facultyId " + preferenceModel.facultyId.toString());
-      print("subjectId " + preferenceModel.subjectId.toString());
+      // print("selectedSemester " + preferenceModel.selectedSemester.toString());
+      // print("selectedYear " + preferenceModel.selectedYear.toString());
+      // print("facultyId " + preferenceModel.facultyId.toString());
+      // print("subjectId " + preferenceModel.subjectId.toString());
 
       Map<String, dynamic> body = {
         "data": {
