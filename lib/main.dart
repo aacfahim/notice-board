@@ -26,10 +26,9 @@ class MyApp extends StatelessWidget {
           primaryColor: Color(0xff246BFD),
           useMaterial3: true,
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          textTheme: GoogleFonts.rubikTextTheme(
-            Theme.of(context).textTheme,
-          ),
-        ),
+        ).copyWith(
+            textTheme:
+                GoogleFonts.creteRoundTextTheme(Theme.of(context).textTheme)),
         debugShowCheckedModeBanner: false,
         home: BlocProvider(
             create: (context) => AuthBloc()..add(AuthInitialEvent()),
