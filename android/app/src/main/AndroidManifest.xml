@@ -5,7 +5,7 @@
 
 
     <application
-        android:label="notice_board"
+        android:label="NU Notice"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
