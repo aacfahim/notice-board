@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ).copyWith(
             textTheme:
-                GoogleFonts.creteRoundTextTheme(Theme.of(context).textTheme)),
+                GoogleFonts.dmSansTextTheme(Theme.of(context).textTheme)),
         debugShowCheckedModeBanner: false,
         home: BlocProvider(
             create: (context) => AuthBloc()..add(AuthInitialEvent()),
