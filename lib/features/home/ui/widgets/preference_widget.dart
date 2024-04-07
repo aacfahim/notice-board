@@ -68,6 +68,8 @@ class PreferenceWidget extends StatelessWidget {
 
                           PreferredDegree.setPreference(preferenceModel)
                               .then((value) => preferenceModel.clearState());
+
+                          Navigator.pop(context);
                         },
                         child: Text('Set Preference',
                             style: TextStyle(color: Colors.white)),
