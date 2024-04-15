@@ -13,7 +13,6 @@ class PreferenceWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final preferenceModel = Provider.of<PreferenceModel>(context);
     return Column(
       children: [
         ListTile(
@@ -54,22 +53,91 @@ class PreferenceWidget extends StatelessWidget {
                         ),
                         onPressed: () {
                           final preferenceModel = Provider.of<PreferenceModel>(
-                              context,
-                              listen: false);
-                          print('Selected Degree: ${preferenceModel.degreeId}');
-                          print(
-                              'Selected Subject: ${preferenceModel.subjectId}');
-                          print(
-                              'Selected Faculty: ${preferenceModel.facultyId}');
-                          print(
-                              'Selected Year: ${preferenceModel.selectedYear}');
-                          print(
-                              'Selected Semester: ${preferenceModel.selectedSemester}');
+                            context,
+                            listen: false,
+                          );
 
-                          PreferredDegree.setPreference(preferenceModel)
-                              .then((value) => preferenceModel.clearState());
+                          // Check if degree is selected and if it's not equal to 2 (assuming 2 is the ID for degree 2)
+                          if (preferenceModel.degreeId != 2) {
+                            // For degrees other than 2, check if subject, faculty, year, and semester are selected
+                            if (preferenceModel.subjectId == null ||
+                                preferenceModel.selectedYear == null ||
+                                preferenceModel.selectedSemester == null) {
+                              // If any of the fields are null, show a message to the user
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Fields are required'),
+                                    content: Text(
+                                        'Please fill out all preference fields.'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('OK'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            } else {
+                              // If all fields are filled, proceed to set the preference
+                              print(
+                                  'Selected Degree: ${preferenceModel.degreeId}');
+                              print(
+                                  'Selected Subject: ${preferenceModel.subjectId}');
+                              print(
+                                  'Selected Year: ${preferenceModel.selectedYear}');
+                              print(
+                                  'Selected Semester: ${preferenceModel.selectedSemester}');
 
-                          Navigator.pop(context);
+                              PreferredDegree.setPreference(preferenceModel)
+                                  .then(
+                                      (value) => preferenceModel.clearState());
+
+                              Navigator.pop(context);
+                            }
+                          } else {
+                            // For degree 2, check if faculty and year are selected
+                            if (preferenceModel.facultyId == null ||
+                                preferenceModel.selectedYear == null) {
+                              // If any of the fields are null, show a message to the user
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text('Fields are required'),
+                                    content: Text(
+                                        'Please fill out all preference fields.'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('OK'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            } else {
+                              // If all fields are filled, proceed to set the preference
+                              print(
+                                  'Selected Degree: ${preferenceModel.degreeId}');
+                              print(
+                                  'Selected Faculty: ${preferenceModel.facultyId}');
+                              print(
+                                  'Selected Year: ${preferenceModel.selectedYear}');
+
+                              PreferredDegree.setPreference(preferenceModel)
+                                  .then(
+                                      (value) => preferenceModel.clearState());
+
+                              Navigator.pop(context);
+                            }
+                          }
                         },
                         child: Text('Set Preference',
                             style: TextStyle(color: Colors.white)),
