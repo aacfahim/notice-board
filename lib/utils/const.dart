@@ -9,3 +9,8 @@ Map<int, String> noticeTypes = {
   4: 'Leave Notice',
   6: 'Result Notice'
 };
+
+
+// Degree 2
+// Masters 4
+// Honors 1
