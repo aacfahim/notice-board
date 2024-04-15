@@ -144,66 +144,58 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                           final categorySuccessState =
                               state as HomeCategoryFetchSuccessfulState;
 
-                          return Container(
-                              // padding: const EdgeInsets.only(left: 10),
+                          return Center(
+                            child: Container(
+                              height: 150,
+                              child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                itemCount:
+                                    categorySuccessState.categories.length,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        String category = categorySuccessState
+                                            .categories[index].attributes!.name
+                                            .toString();
 
-                              width: double.infinity,
-                              height: height * .2,
-                              child: Center(
-                                child: Container(
-                                  height: 150,
-                                  child: ListView.separated(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount:
-                                        categorySuccessState.categories.length,
-                                    itemBuilder: (context, index) {
-                                      return Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 8.0),
-                                        child: InkWell(
-                                          onTap: () {
-                                            String category =
-                                                categorySuccessState
-                                                    .categories[index]
-                                                    .attributes!
-                                                    .name
-                                                    .toString();
-
-                                            // noticeBloc.add(
-                                            //     CategorizedNoticeFetchEvent(
-                                            //         category));
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    CategorizedNoticeList(
-                                                        category: category),
-                                              ),
-                                            );
-                                          },
-                                          child: CategoryTile(
-                                              // noticesCount: 30,
-                                              title: categorySuccessState
-                                                  .categories[index]
-                                                  .attributes!
-                                                  .name
-                                                  .toString()
-                                              // title: "Hello",
-                                              ),
-                                        ),
-                                      );
-                                    },
-                                    separatorBuilder: (context, index) =>
-                                        SizedBox(width: 15),
-                                  ),
-                                ),
-                              ));
+                                        // noticeBloc.add(
+                                        //     CategorizedNoticeFetchEvent(
+                                        //         category));
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                CategorizedNoticeList(
+                                                    category: category),
+                                          ),
+                                        );
+                                      },
+                                      child: CategoryTile(
+                                          // noticesCount: 30,
+                                          title: categorySuccessState
+                                              .categories[index]
+                                              .attributes!
+                                              .name
+                                              .toString()
+                                          // title: "Hello",
+                                          ),
+                                    ),
+                                  );
+                                },
+                                separatorBuilder: (context, index) =>
+                                    SizedBox(width: 15),
+                              ),
+                            ),
+                          );
                         default:
                           return const SizedBox.shrink();
                       }
                     },
                   ),
-                  SizedBox(height: height * 0.02),
+                  SizedBox(height: height * 0.01),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
@@ -255,7 +247,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                           final noticeTileState =
                               state as HomeNoticeFetchSuccessfulState;
                           return Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            // padding: const EdgeInsets.symmetric(horizontal: 10),
                             height: height * 0.5,
                             child: MediaQuery.removePadding(
                               context: context,
@@ -264,7 +256,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                   itemBuilder: (context, index) {
                                     final notice =
                                         noticeTileState.notices[index];
-                                    return InkWell(
+                                    return GestureDetector(
                                       onTap: () {
                                         Navigator.push(
                                           context,

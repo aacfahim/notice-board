@@ -19,7 +19,7 @@ class CategoryTile extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
+              spreadRadius: 1,
               blurRadius: 2,
               offset: Offset(0, 2),
             ),

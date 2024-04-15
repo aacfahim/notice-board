@@ -33,14 +33,14 @@ class _AllNoticeListState extends State<AllNoticeList> {
       body: RefreshIndicator(
         onRefresh: _refreshData,
         child: Padding(
-          padding: const EdgeInsets.only(left: 12.0, right: 12, top: 10),
+          padding: const EdgeInsets.only(top: 10),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(
-              "Notice List",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            ),
-            SizedBox(height: 8),
+            // Text(
+            //   "Notice List",
+            //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            // ),
+            // SizedBox(height: 8),
             Expanded(
               child: BlocConsumer<NoticeBloc, NoticeState>(
                 bloc: noticeBloc,
