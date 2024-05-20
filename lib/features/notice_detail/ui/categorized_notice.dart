@@ -37,10 +37,6 @@ class _CategorizedNoticeListState extends State<CategorizedNoticeList> {
           padding: const EdgeInsets.only(left: 12.0, right: 12, top: 10),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text(
-              "Categorized Notice",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            ),
             SizedBox(height: 8),
             Expanded(
               child: BlocConsumer<NoticeBloc, NoticeState>(
