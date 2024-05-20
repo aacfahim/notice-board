@@ -29,6 +29,13 @@ class NoticeServices {
           notices.add(NoticeDataModel.fromJson(i));
         }
 
+        // Sort the notices by dateInNotice in descending order
+        notices.sort((a, b) {
+          DateTime dateA = DateTime.parse(a.attributes!.dateInNotice!);
+          DateTime dateB = DateTime.parse(b.attributes!.dateInNotice!);
+          return dateB.compareTo(dateA); // For descending order
+        });
+
         print("notice tile data: " + jsonEncode(data));
 
         return notices;
@@ -93,7 +100,7 @@ class NoticeServices {
       case "Exam Notice":
         categoryId = "2";
         break;
-      case "Special Notice":
+      case "Admission Notice":
         categoryId = "3";
         break;
       case "Leave Notice":
@@ -129,6 +136,12 @@ class NoticeServices {
         for (var i in data['data']) {
           notices.add(NoticeDataModel.fromJson(i));
         }
+
+        notices.sort((a, b) {
+          DateTime dateA = DateTime.parse(a.attributes!.dateInNotice!);
+          DateTime dateB = DateTime.parse(b.attributes!.dateInNotice!);
+          return dateB.compareTo(dateA); // For descending order
+        });
 
         print("notice tile data: " + jsonEncode(data));
 
