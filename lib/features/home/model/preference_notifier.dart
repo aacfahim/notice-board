@@ -6,6 +6,7 @@ class PreferenceModel extends ChangeNotifier {
   int? subjectId;
   int? selectedYear;
   int? selectedSemester;
+  int? selectedCategory;
 
   void clearState() {
     degreeId = null;
@@ -13,6 +14,7 @@ class PreferenceModel extends ChangeNotifier {
     subjectId = null;
     selectedYear = null;
     selectedSemester = null;
+    selectedCategory = null;
     notifyListeners();
   }
 
@@ -38,6 +40,11 @@ class PreferenceModel extends ChangeNotifier {
 
   void updateSelectedSemester(int? semester) {
     selectedSemester = semester;
+    notifyListeners();
+  }
+
+  void updateSelectedCategory(int? category) {
+    selectedCategory = category;
     notifyListeners();
   }
 }

@@ -91,6 +91,8 @@ class PreferenceWidget extends StatelessWidget {
                                     'Selected Subject: ${preferenceModel.subjectId}');
                                 print(
                                     'Selected Year: ${preferenceModel.selectedYear}');
+                                print(
+                                    'Selected Category: ${preferenceModel.selectedCategory}');
 
                                 PreferredDegree.setPreference(preferenceModel)
                                     .then((value) =>
@@ -130,6 +132,8 @@ class PreferenceWidget extends StatelessWidget {
                                   'Selected Year: ${preferenceModel.selectedYear}');
                               print(
                                   'Selected Semester: ${preferenceModel.selectedSemester}');
+                              print(
+                                  'Selected Category: ${preferenceModel.selectedCategory}');
 
                               PreferredDegree.setPreference(preferenceModel)
                                   .then(
@@ -168,6 +172,8 @@ class PreferenceWidget extends StatelessWidget {
                                   'Selected Faculty: ${preferenceModel.facultyId}');
                               print(
                                   'Selected Year: ${preferenceModel.selectedYear}');
+                              print(
+                                  'Selected Category: ${preferenceModel.selectedCategory}');
 
                               PreferredDegree.setPreference(preferenceModel)
                                   .then(

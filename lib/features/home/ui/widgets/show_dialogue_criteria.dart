@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
+import 'package:notice_board/features/home/model/category_model.dart';
 import 'package:notice_board/features/home/model/degree_model.dart';
 import 'package:notice_board/features/home/model/preference_notifier.dart';
+import 'package:notice_board/features/home/repos/category_services.dart';
 import 'package:notice_board/features/home/repos/preferred_degree_dropdown.dart';
 import 'package:provider/provider.dart';
 
@@ -15,22 +17,33 @@ class ShowDialoguePreferrence extends StatefulWidget {
 
 class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
   List<DegreeModel> _degreeDropdownData = [];
+  List<CategoryDataModel> _categories = [];
   String? _selectedDegree;
   String? _selectedSubject;
   String? _selectedFaculty;
   int? _selectedYear;
   int? _selectedSemester;
+  String? _selectedCategory;
 
   @override
   void initState() {
     super.initState();
     _fetchDegreeDropdown();
+    _fetchCategoryDropdown();
   }
 
   Future<void> _fetchDegreeDropdown() async {
     List<DegreeModel> degreeList = await PreferredDegree.fetchDegreeDropdown();
     setState(() {
       _degreeDropdownData = degreeList;
+    });
+  }
+
+  Future<void> _fetchCategoryDropdown() async {
+    List<CategoryDataModel> categoryList =
+        await CategoryServices.fetchCategory();
+    setState(() {
+      _categories = categoryList;
     });
   }
 
@@ -51,6 +64,7 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
                 _selectedFaculty = null;
                 _selectedYear = null;
                 _selectedSemester = null;
+                _selectedCategory = null;
               });
               int? degreeId = _degreeDropdownData
                   .firstWhereOrNull((degree) => degree.degreeName == value)
@@ -114,6 +128,31 @@ class _ShowDialoguePreferrenceState extends State<ShowDialoguePreferrence> {
               },
               items: _getSemesterItems(),
             ),
+          DropdownButton<String>(
+            hint: Text('Select Category (optional)'),
+            value: _selectedCategory,
+            onChanged: (String? value) {
+              setState(() {
+                _selectedCategory = value;
+              });
+              int? categoryId = _categories
+                  .firstWhereOrNull(
+                      (category) => category.attributes!.name == value)
+                  ?.id;
+              Provider.of<PreferenceModel>(context, listen: false)
+                  .updateSelectedCategory(categoryId);
+            },
+            items: _categories
+                .where((category) => category.attributes!.name != null)
+                .map((category) => category.attributes!.name)
+                .toSet()
+                .map((categoryName) {
+              return DropdownMenuItem<String>(
+                value: categoryName,
+                child: Text(categoryName.toString()),
+              );
+            }).toList(),
+          ),
         ],
       ),
     );
