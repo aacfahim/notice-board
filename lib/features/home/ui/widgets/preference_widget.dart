@@ -60,7 +60,45 @@ class PreferenceWidget extends StatelessWidget {
                           // Check if degree is selected and if it's not equal to 2 (assuming 2 is the ID for degree 2)
                           if (preferenceModel.degreeId != 2) {
                             // For degrees other than 2, check if subject, faculty, year, and semester are selected
-                            if (preferenceModel.subjectId == null ||
+                            if (preferenceModel.degreeId == 3) {
+                              // Specific check for M.Phil degree
+                              if (preferenceModel.subjectId == null ||
+                                  preferenceModel.selectedYear == null) {
+                                // If any of the fields are null, show a message to the user
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: Text('Fields are required'),
+                                      content: Text(
+                                          'Please fill out all preference fields.'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text('OK'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              } else {
+                                // If all fields are filled, proceed to set the preference
+                                print(
+                                    'Selected Degree: ${preferenceModel.degreeId}');
+                                print(
+                                    'Selected Subject: ${preferenceModel.subjectId}');
+                                print(
+                                    'Selected Year: ${preferenceModel.selectedYear}');
+
+                                PreferredDegree.setPreference(preferenceModel)
+                                    .then((value) =>
+                                        preferenceModel.clearState());
+
+                                Navigator.pop(context);
+                              }
+                            } else if (preferenceModel.subjectId == null ||
                                 preferenceModel.selectedYear == null ||
                                 preferenceModel.selectedSemester == null) {
                               // If any of the fields are null, show a message to the user
