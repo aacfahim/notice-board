@@ -7,11 +7,13 @@ class NoticeTile extends StatelessWidget {
       this.bookmarked = false,
       required this.title,
       this.noticeType,
-      required this.date});
+      required this.date,
+      this.isNoticeTypeShown = true});
   final bool bookmarked;
   final String title;
   final noticeType;
   final String date;
+  final bool isNoticeTypeShown;
 
   @override
   Widget build(BuildContext context) {
@@ -50,18 +52,22 @@ class NoticeTile extends StatelessWidget {
               ],
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: !isNoticeTypeShown
+                  ? MainAxisAlignment.center
+                  : MainAxisAlignment.spaceBetween,
               children: [
                 Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
                   color: Color(0xffE9F0FF),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 12.0, vertical: 4),
-                    child: Text(noticeType),
-                  ),
+                  child: isNoticeTypeShown == false
+                      ? SizedBox()
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0, vertical: 4),
+                          child: Text(noticeType),
+                        ),
                 ),
                 Row(
                   children: [

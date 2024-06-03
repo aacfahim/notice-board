@@ -8,8 +8,10 @@ import 'package:notice_board/features/notice_detail/ui/notice_detail_screen.dart
 import 'package:shimmer/shimmer.dart';
 
 class CategorizedNoticeList extends StatefulWidget {
-  CategorizedNoticeList({super.key, required this.category});
+  CategorizedNoticeList(
+      {super.key, required this.category, this.isTypeShown = true});
   String category;
+  bool isTypeShown;
 
   @override
   State<CategorizedNoticeList> createState() => _CategorizedNoticeListState();
@@ -95,6 +97,7 @@ class _CategorizedNoticeListState extends State<CategorizedNoticeList> {
                                       .notices[index].attributes!.dateInNotice
                                       .toString(),
                                   bookmarked: false,
+                                  isNoticeTypeShown: widget.isTypeShown,
                                   noticeType: notice.category!.name.toString(),
                                 ),
                               );

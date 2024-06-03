@@ -169,7 +169,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                           MaterialPageRoute(
                                             builder: (context) =>
                                                 CategorizedNoticeList(
-                                                    category: category),
+                                                    category: category,
+                                                    isTypeShown: false),
                                           ),
                                         );
                                       },
