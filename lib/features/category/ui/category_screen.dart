@@ -43,10 +43,6 @@ class _CategoryScreenState extends State<CategoryScreen>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Categories",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
               SizedBox(height: 8),
               Expanded(
                 child: BlocConsumer<CategoryBloc, CategoryState>(
@@ -83,7 +79,9 @@ class _CategoryScreenState extends State<CategoryScreen>
                                     MaterialPageRoute(
                                       builder: (context) =>
                                           CategorizedNoticeList(
-                                              category: category),
+                                        category: category,
+                                        isTypeShown: false,
+                                      ),
                                     ),
                                   );
                                 },
