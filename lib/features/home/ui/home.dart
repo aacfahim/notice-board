@@ -11,6 +11,7 @@ import 'package:notice_board/features/home/ui/widgets/preference_widget.dart';
 import 'package:notice_board/features/home/ui/widgets/home_appbar.dart';
 import 'package:notice_board/features/home/ui/widgets/notice_tile.dart';
 import 'package:notice_board/features/home/ui/widgets/notice_tile_shimmer.dart';
+import 'package:notice_board/features/home/ui/widgets/tutor_search.dart';
 import 'package:notice_board/features/notice_detail/bloc/notice_bloc.dart';
 import 'package:notice_board/features/notice_detail/ui/all_notice.dart';
 import 'package:notice_board/features/notice_detail/ui/categorized_notice.dart';
@@ -73,6 +74,11 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
               HomeAppBar(subtitle: "Let's see the update notice"),
               Column(
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: TutorSearch(),
+                  ),
+                  SizedBox(height: height * 0.015),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Container(
