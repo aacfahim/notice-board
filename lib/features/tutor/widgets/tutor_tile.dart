@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notice_board/utils/const.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TutorTile extends StatelessWidget {
   const TutorTile(
@@ -38,23 +38,33 @@ class TutorTile extends StatelessWidget {
           ],
         ),
         child: ListTile(
-          title: Text(
+          title: SelectableText(
             "$tutorName",
             textAlign: TextAlign.center,
           ),
           subtitle: Column(
             children: [
-              Text("Subject: $subjectSkill"),
-              Text("From: $availability for $duration hour"),
-              Text("Location: $location"),
-              Text("Contact: $contact"),
+              SelectableText("Subject: $subjectSkill"),
+              SelectableText("From: $availability for $duration hour"),
+              SelectableText("Location: $location"),
+              SelectableText("Contact: $contact"),
             ],
           ),
           trailing: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Icon(Icons.call_rounded),
-              Icon(Icons.message_outlined),
+              InkWell(
+                  onTap: () async {
+                    if (!await launchUrl(Uri.parse('tel:$contact')))
+                      throw Exception("Could not launch $contact");
+                  },
+                  child: Icon(Icons.call_rounded)),
+              InkWell(
+                  onTap: () async {
+                    if (!await launchUrl(Uri.parse('sms:$contact')))
+                      throw Exception("Could not launch $contact");
+                  },
+                  child: Icon(Icons.message_outlined)),
             ],
           ),
         ));
