@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notice_board/features/common/ui/common_appbar.dart';
+import 'package:notice_board/features/more/ui/preference_list.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({super.key});
@@ -18,9 +19,17 @@ class MoreScreen extends StatelessWidget {
           title: Text("Privacy Policy"),
         ),
         divider(),
-        ListTile(
-          leading: Icon(Icons.feedback),
-          title: Text("Feedback"),
+        InkWell(
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PreferenceList(isBack: true)));
+          },
+          child: ListTile(
+            leading: Icon(Icons.collections_bookmark),
+            title: Text("Preference"),
+          ),
         ),
         divider(),
         ListTile(

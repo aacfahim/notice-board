@@ -98,6 +98,12 @@ class PreferenceWidget extends StatelessWidget {
                                     .then((value) =>
                                         preferenceModel.clearState());
 
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Preference Saved'),
+                                  ),
+                                );
+
                                 Navigator.pop(context);
                               }
                             } else if (preferenceModel.subjectId == null ||
@@ -139,6 +145,12 @@ class PreferenceWidget extends StatelessWidget {
                                   .then(
                                       (value) => preferenceModel.clearState());
 
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Preference Saved'),
+                                ),
+                              );
+
                               Navigator.pop(context);
                             }
                           } else {
@@ -178,6 +190,12 @@ class PreferenceWidget extends StatelessWidget {
                               PreferredDegree.setPreference(preferenceModel)
                                   .then(
                                       (value) => preferenceModel.clearState());
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Preference Saved'),
+                                ),
+                              );
 
                               Navigator.pop(context);
                             }
