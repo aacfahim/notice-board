@@ -29,6 +29,34 @@ class _CategorizedNoticeListState extends State<CategorizedNoticeList> {
     noticeBloc.add(CategorizedNoticeFetchEvent(widget.category));
   }
 
+  String timeAgo(String dateString) {
+    // Parse the input string to a DateTime object
+    DateTime date = DateTime.parse(dateString);
+
+    final now = DateTime.now();
+    final difference = now.difference(date);
+
+    if (difference.inDays == 0) {
+      return "today";
+    } else if (difference.inDays == 1) {
+      return "yesterday";
+    } else if (difference.inDays < 7) {
+      return "${difference.inDays} days ago";
+    } else if (difference.inDays < 14) {
+      return "last week";
+    } else if (difference.inDays < 30) {
+      return "${(difference.inDays / 7).floor()} weeks ago";
+    } else if (difference.inDays < 60) {
+      return "last month";
+    } else if (difference.inDays < 365) {
+      return "${(difference.inDays / 30).floor()} months ago";
+    } else if (difference.inDays < 730) {
+      return "last year";
+    } else {
+      return "${(difference.inDays / 365).floor()} years ago";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,9 +121,9 @@ class _CategorizedNoticeListState extends State<CategorizedNoticeList> {
                                   title: noticeState
                                       .notices[index].attributes!.title
                                       .toString(),
-                                  date: noticeState
+                                  date: timeAgo(noticeState
                                       .notices[index].attributes!.dateInNotice
-                                      .toString(),
+                                      .toString()),
                                   bookmarked: false,
                                   isNoticeTypeShown: widget.isTypeShown,
                                   noticeType: notice.category!.name.toString(),

@@ -13,7 +13,10 @@ String PREFERRED_DETAILED_NOTICE =
 String DEGREE_LENGTH =
     "degree-lengths?pagination%5BpageSize%5D=1000&populate=%2A";
 
-String USER_PREFERENCE = "user-preferences";
+String USER_PREFERENCE =
+    "user-preferences?pagination%5BpageSize%5D=1000&populate=%2A";
+
+String USER_PREFERENCE_DELETE_BY_ID = "user-preferences";
 
 
 // All Notice : 1

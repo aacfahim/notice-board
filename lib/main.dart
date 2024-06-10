@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:notice_board/features/auth/bloc/auth_bloc.dart';
 import 'package:notice_board/features/auth/ui/auth_screen.dart';
 import 'package:notice_board/features/home/model/preference_notifier.dart';
+import 'package:notice_board/features/more/ui/preference_list/model/preference_notifier.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -17,8 +18,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => PreferenceModel(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<PreferenceModel>(
+          create: (context) => PreferenceModel(),
+        ),
+        ChangeNotifierProvider<PreferenceNotifier>(
+          create: (_) => PreferenceNotifier(),
+        ),
+      ],
       child: MaterialApp(
         title: 'Notice Board App',
         theme: ThemeData(

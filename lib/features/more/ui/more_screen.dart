@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notice_board/features/common/ui/common_appbar.dart';
-import 'package:notice_board/features/more/ui/preference_list.dart';
+import 'package:notice_board/features/more/ui/preference_list/ui/preference_list.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({super.key});
