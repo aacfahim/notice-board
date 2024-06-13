@@ -23,7 +23,7 @@ class NoticeTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Container(
         padding: EdgeInsets.all(12),
-        height: 100,
+        height: height * .2,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
@@ -44,7 +44,11 @@ class NoticeTile extends StatelessWidget {
               children: [
                 SizedBox(
                   width: width * 0.80,
-                  child: Text(title, overflow: TextOverflow.ellipsis),
+                  child: Text(
+                    title,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 4,
+                  ),
                 ),
                 // bookmarked
                 //     ? Image.asset("assets/bookmarked.png")

@@ -73,7 +73,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              HomeAppBar(subtitle: "Let's see the update notice"),
+              HomeAppBar(subtitle: "National University"),
               Column(
                 children: [
                   if (!preferenceNotifier.isPreferenceSaved)
@@ -245,7 +245,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               )
                             : Text(
-                                "My Notices",
+                                "My Notice",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                         InkWell(

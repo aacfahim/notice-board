@@ -31,7 +31,7 @@ class HomeAppBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Hello, peoples",
+                    "Notice Board",
                     style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                   SizedBox(width: 5),
