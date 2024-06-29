@@ -90,7 +90,9 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
                         child: PreferenceWidget(),
                       ),
                     ),
-                  SizedBox(height: height * 0.02),
+                  !preferenceNotifier.isPreferenceSaved
+                      ? SizedBox(height: height * 0.02)
+                      : SizedBox.shrink(),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
