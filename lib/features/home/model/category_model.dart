@@ -55,13 +55,15 @@ class Attributes {
   String? updatedAt;
   String? publishedAt;
   String? locale;
+  String? categorieLogoLink;
 
   Attributes(
       {this.name,
       this.createdAt,
       this.updatedAt,
       this.publishedAt,
-      this.locale});
+      this.locale,
+      this.categorieLogoLink});
 
   Attributes.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -69,6 +71,7 @@ class Attributes {
     updatedAt = json['updatedAt'];
     publishedAt = json['publishedAt'];
     locale = json['locale'];
+    categorieLogoLink = json['categorie_logo_link'];
   }
 
   Map<String, dynamic> toJson() {
@@ -78,6 +81,7 @@ class Attributes {
     data['updatedAt'] = this.updatedAt;
     data['publishedAt'] = this.publishedAt;
     data['locale'] = this.locale;
+    data['categorie_logo_link'] = this.categorieLogoLink;
     return data;
   }
 }
