@@ -18,6 +18,9 @@ String USER_PREFERENCE =
 
 String USER_PREFERENCE_DELETE_BY_ID = "user-preferences";
 
+String TUTOR_LIST = "tutor-lists";
+
+
 
 // All Notice : 1
 // Exam Notice : 2
