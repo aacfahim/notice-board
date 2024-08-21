@@ -18,7 +18,7 @@ String USER_PREFERENCE =
 
 String USER_PREFERENCE_DELETE_BY_ID = "user-preferences";
 
-String TUTOR_LIST = "tutor-lists";
+String TUTOR_LIST = "tutor-lists?populate=%2A";
 
 
 

@@ -5,12 +5,14 @@ class TutorTile extends StatelessWidget {
   const TutorTile(
       {super.key,
       required this.tutorName,
+      required this.tutorProfileImage,
       required this.subjectSkill,
       required this.location,
       required this.availability,
       required this.contact,
       required this.duration});
   final String tutorName;
+  final String tutorProfileImage;
   final String subjectSkill;
   final String location;
   final String availability;
@@ -38,6 +40,16 @@ class TutorTile extends StatelessWidget {
           ],
         ),
         child: ListTile(
+          leading: tutorProfileImage == "null"
+              ? CircleAvatar(child: Icon(Icons.person))
+              : ClipOval(
+                  child: Image.network(
+                    tutorProfileImage,
+                    width: 100.0,
+                    height: 100.0,
+                    fit: BoxFit.cover,
+                  ),
+                ),
           title: SelectableText(
             "$tutorName",
             textAlign: TextAlign.center,

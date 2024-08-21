@@ -57,9 +57,11 @@ class Attributes {
   String? updatedAt;
   String? publishedAt;
   String? oid;
+  String? tutorProfileImage;
 
   Attributes(
       {this.tutorName,
+      this.tutorProfileImage,
       this.subjectSkill,
       this.location,
       this.contact,
@@ -75,6 +77,7 @@ class Attributes {
   Attributes.fromJson(Map<String, dynamic> json) {
     tutorName = json['tutor_name'];
     subjectSkill = json['subject_skill'];
+    tutorProfileImage = json['tutor_profile_picture_link'];
     location = json['location'];
     contact = json['contact'];
     startFrom = json['start_from'];
@@ -90,6 +93,7 @@ class Attributes {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['tutor_name'] = this.tutorName;
+    data['tutor_profile_picture_link'] = this.tutorProfileImage;
     data['subject_skill'] = this.subjectSkill;
     data['location'] = this.location;
     data['contact'] = this.contact;
