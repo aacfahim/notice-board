@@ -5,12 +5,14 @@ class TutorTile extends StatelessWidget {
   const TutorTile(
       {super.key,
       required this.tutorName,
+      required this.tutorProfileImage,
       required this.subjectSkill,
       required this.location,
       required this.availability,
       required this.contact,
       required this.duration});
   final String tutorName;
+  final String tutorProfileImage;
   final String subjectSkill;
   final String location;
   final String availability;
@@ -38,6 +40,9 @@ class TutorTile extends StatelessWidget {
           ],
         ),
         child: ListTile(
+          leading: tutorProfileImage == "null"
+              ? Icon(Icons.person)
+              : Image.network(tutorProfileImage),
           title: SelectableText(
             "$tutorName",
             textAlign: TextAlign.center,
@@ -50,23 +55,23 @@ class TutorTile extends StatelessWidget {
               SelectableText("Contact: $contact"),
             ],
           ),
-          trailing: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              InkWell(
-                  onTap: () async {
-                    if (!await launchUrl(Uri.parse('tel:$contact')))
-                      throw Exception("Could not launch $contact");
-                  },
-                  child: Icon(Icons.call_rounded)),
-              InkWell(
-                  onTap: () async {
-                    if (!await launchUrl(Uri.parse('sms:$contact')))
-                      throw Exception("Could not launch $contact");
-                  },
-                  child: Icon(Icons.message_outlined)),
-            ],
-          ),
+          // trailing: Column(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     InkWell(
+          //         onTap: () async {
+          //           if (!await launchUrl(Uri.parse('tel:$contact')))
+          //             throw Exception("Could not launch $contact");
+          //         },
+          //         child: Icon(Icons.call_rounded)),
+          //     InkWell(
+          //         onTap: () async {
+          //           if (!await launchUrl(Uri.parse('sms:$contact')))
+          //             throw Exception("Could not launch $contact");
+          //         },
+          //         child: Icon(Icons.message_outlined)),
+          //   ],
+          // ),
         ));
   }
 }

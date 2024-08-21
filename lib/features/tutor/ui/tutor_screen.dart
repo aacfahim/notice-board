@@ -65,6 +65,9 @@ class _TutorScreenState extends State<TutorScreen>
                                 tutorName: tutorState
                                     .tutorList[index].attributes!.tutorName
                                     .toString(),
+                                tutorProfileImage: tutorState.tutorList[index]
+                                    .attributes!.tutorProfileImage
+                                    .toString(),
                                 subjectSkill: tutorState
                                     .tutorList[index].attributes!.subjectSkill
                                     .toString(),
